@@ -1,0 +1,13 @@
+<apex:page controller="PieChartController" title="Pie Chart" docType="HTML-5.0">
+    <apex:chart height="350" width="450" data="{!pieData}">
+        <apex:pieSeries dataField="data" labelField="name"/>
+        <apex:legend position="right"/>
+    </apex:chart>
+    <apex:form >
+    <apex:selectList size="1" multiselect="false" value="{!selectedTime}" onchange="alert(this.value);">
+        <apex:selectOptions value="{!slotList}"></apex:selectOptions>
+    </apex:selectList>
+    <apex:input type="time" value="{!selectedNewTime}" id="nxtTime" />
+    <apex:commandButton value="Populate" action="{!getValue}"/>
+    </apex:form>
+</apex:page>

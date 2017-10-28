@@ -1,0 +1,10 @@
+<apex:page controller="rajesh_SessionOut" >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page: sessionout
+  <!-- End Default Content REMOVE THIS -->
+  <apex:form id="frm">
+  <apex:actionFunction name="deletesession" action="{!logOutUser}"/>
+      <apex:commandButton value="Logout" action="{!logOutUser}" oncomplete="deletesession" reRender="frm"/>
+  </apex:form>
+</apex:page>

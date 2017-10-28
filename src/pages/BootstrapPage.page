@@ -1,0 +1,40 @@
+<apex:page sidebar="false" showHeader="false" standardStyleSheets="false">
+    <head>
+        <meta charset="utf-8" />
+        <title>Force.com Mobile Developer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <!-- Static Resources for CSS -->
+        <link href="{!URLFOR($Resource.bootstrap, 'bootstrap/css/bootstrap.css')}" rel="stylesheet"/>
+       
+        <style>
+           .customDiv {
+                margin:3px;
+                min-height:700px;
+                background-color:silver;
+                text-align:center;
+                font-size:large;
+            }
+
+        </style>
+        
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-lg-9 col-sm-6">
+                <div class="customDiv">First side bar</div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="customDiv">Second content area</div>
+            </div>
+            <div class="col-md-3 col-lg-9 col-sm-6">
+                <div class="customDiv">Third side bar</div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <div class="customDiv">Fouth side bar</div>
+            </div>
+        </div>
+    </div>
+    </body>
+</apex:page>

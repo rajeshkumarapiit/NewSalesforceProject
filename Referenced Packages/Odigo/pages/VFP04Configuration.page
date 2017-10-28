@@ -1,0 +1,396 @@
+<apex:page setup="true" controller="Odigo.VFC04Configuration" cache="true" id="VP04configurationPageID" action="{! retrieveOrgConfiguration }" >
+<style>
+    .pnlButtonContainer { float:left; }
+    .pnlPickListContainer { float: left; min-width: 430px; }
+    .pnlIconsContainer { float: left; width: 30px; }
+    .floatting { float: left; }
+    .clearer {clear:both}
+    .icon { margin-top: 5px; cursor: pointer; }
+    .errorMessage { color: red; list-style: none; }
+    .libInfo { font-size: 0.8em; font-style:italic; }
+    .errorContainer {}
+   	.separatorDiv { border-bottom: 1px solid #e6e6e6; }
+    .singleSelectlist { width: 255px; }
+    .multipleSelectlist { width: 180px; }
+    .agentName { margin-left: 10px; font-size: 0.8em; font-weight: bold; color: grey; }
+    .agentNameContainer { 
+    	margin-bottom: 5px;
+   		background-color: #cfeef8; 
+   		width: 390px; 
+   		border-radius: 5px; 
+   		box-shadow: 2px 2px 2px lightgrey; 
+    }
+    .selectListHeader { font-size: 0.8em; }
+    .watingTextContainer { 
+	    text-align: center; 
+	    width: 50%; 
+	    z-index: 1001; 
+	    background-color: white; 
+	    top: 25%; 
+	    position: absolute; 
+	    left:25%; 
+	    border: 1px solid black;
+    }
+    .waitingDiv { width: 100%; }
+    .veil { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; opacity: 0.3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; z-index: 1000; }
+    .throbber { padding-top: 10px; }
+    .validity {
+    	width: 50%;
+    	margin-left: 25%;
+    }
+    .stillValid { color: #27B30B; }
+    .expired { color: #F00000; }
+    
+ </style>
+<script>
+	//move item from source component id to dest component id
+	function moveItem(pIdComponentSource, pIdComponentDest) {
+		var vSelectSource = document.getElementById(pIdComponentSource);
+		var vSelectDest = document.getElementById(pIdComponentDest);
+		for (var i = 0; i < vSelectSource.options.length; i++) {
+			if (vSelectSource.options[i].selected) {				
+				vSelectDest.options[vSelectDest.options.length] = new Option(vSelectSource.options[i].innerHTML, vSelectSource.options[i].value);
+				//vSelectSource.remove(vSelectSource.options[i]);
+				vSelectSource.remove(i);
+				i--;				
+			}
+		}
+	}	
+	
+	// Update skills for agents : create to JSON array to send to the controller
+	function updateSkillForAgentJS(pComponentSource, pComponentDest, pAgentIndex, pLeftToRight) {	
+		var vSelectSource = document.getElementById(pComponentSource);
+		var vSelectDest = document.getElementById(pComponentDest);
+		var vSelectedSkillItems = [];
+		var vUnSelectedSkillItems = [];
+		moveItem(pComponentSource, pComponentDest);		
+		
+		for (var i = 0; i < vSelectDest.options.length; i++) {		
+			if (pLeftToRight) {
+				vSelectedSkillItems[i] = vSelectDest.options[i].value;
+			} else {
+				vUnSelectedSkillItems[i] = vSelectDest.options[i].value;
+			}
+		}
+		for (var i = 0; i < vSelectSource.options.length; i++) {
+			if (pLeftToRight) {
+				vUnSelectedSkillItems[i] = vSelectSource.options[i].value;
+			} else {
+				vSelectedSkillItems[i] = vSelectSource.options[i].value;
+			}
+		}
+				
+		selectSkillForAgent(pAgentIndex, JSON.stringify(vSelectedSkillItems), JSON.stringify(vUnSelectedSkillItems));
+	}
+	
+	/* Check JSON in IE7 */
+	if (typeof JSON !== 'object') {
+		var js = document.createElement("script");
+		js.type = "text/javascript";
+		js.src = "{!URLFOR($Resource.Odigo_resources, '/js/Odigo_Json.js')}";	
+		document.body.appendChild(js);
+	}		
+	
+	// Update functions
+	var mPollingConfig = null;
+	
+   	function refreshInfos() {
+   		refreshDemoInfos();
+   	}
+   	
+   	function launchPollingCheckConfig() {
+   		if (mPollingConfig == null) {
+			mPollingConfig = setInterval(function() { refreshInfos() }, 1000);
+		}
+	}
+
+	function stopPollingCheckConfig() {
+		if (mPollingConfig != null) {
+			clearInterval(mPollingConfig);
+			mPollingConfig = null;
+		}
+	}
+     
+</script>
+
+	<apex:sectionHeader title="{!$Label.odigo__odigo_vfp04title}" />
+    <apex:pageMessages />
+	<apex:form id="formConfig">
+         
+         <apex:actionFunction name="deleteCache" action="{!deleteCache}" reRender="" />
+         
+	     <apex:actionFunction name="SaveAF" action="{!save}">       
+		     <apex:param id="pSkillList" name="pSkillList" value="" />  
+		 </apex:actionFunction>
+					 
+        <apex:actionFunction name="refreshLists" action="{!refreshLists}"  status="status"/>
+       
+        <apex:pageBlock mode="edit">
+                    	
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="{!$Label.odigo__odigo_vfp04btnsave}" rendered="{!NOT(isExpired)}"/>
+                <apex:commandButton action="{!cancel}" value="{!$Label.odigo__odigo_vfp04btncancel}" rendered="{!NOT(isExpired)}" />
+                <!-- <apex:outputText value="{!$Label.Odigo_AP02UtilityExpirationLabel}" styleClass="errorMessage" rendered="{!isExpired}" />-->
+            </apex:pageBlockButtons>
+                      
+            <div style="width: 50%; margin: auto;">
+            	<apex:outputText value="{!errorMessages['VFP04ErrPushErrorOccured']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrPushErrorOccured']!=null, true, false )}"/>
+            	<apex:outputText value="{!errorMessages['VFP04ErrSelectAgentSkillRequired']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectAgentSkillRequired']!=null, true, false)}" />
+				<apex:outputText value="{!errorMessages['VFP04ErrSelectAgentRequired']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectAgentRequired']!=null, true, false)}" />
+            	<apex:outputText value="{!errorMessages['VFP04ErrSelectSkillsAtLeastOne']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectSkillsAtLeastOne']!=null, true, false)}" />
+            </div>
+	
+            
+            <apex:pageBlockSection title="{!$Label.odigo__odigo_vfp04demoinfos}" id="ConfigPGB_0" columns="1" rendered="{!isConfigurationCreated}">
+            	
+            		<apex:outputPanel >
+	                	<apex:outputPanel styleClass="validity stillValid" rendered="{!NOT(isExpired)}">
+	  						<apex:outputText escape="false" value="{!HTMLENCODE(validityMessage)}" id="validityOKMessage"></apex:outputText>
+						</apex:outputPanel>
+	                	<apex:outputPanel styleClass="validity expired" rendered="{!isExpired}">
+	  						<apex:outputText value="{!validityMessage}" id="validityExpiredMessage"></apex:outputText>
+						</apex:outputPanel>
+					 </apex:outputPanel>
+            	
+            	<!-- Universe -->
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04demoid}"/>
+                	<apex:outputPanel styleClass="floatting" layout="block">
+  						<apex:outputText value="{!demoID}" id="demoID"></apex:outputText>
+					 </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04odigoivr}"/>
+                	<apex:outputPanel styleClass="floatting" layout="block">
+  						<apex:outputText value="{!accessSVI}" id="IVRaccess"/>
+					 </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04downloadiosurl}"/>
+                	<apex:outputPanel styleClass="floatting" layout="block">
+  						<apex:outputLink value="{!urliOS}" id="iOSLink">{!urliOS}</apex:outputLink>
+					 </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04urlsmartcall}"/>
+                	<apex:outputPanel styleClass="floatting" layout="block">
+  						<apex:outputLink value="{!urlSmartCall}" id="urlSC">{!urlSmartCall}</apex:outputLink>
+					 </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <!-- End -->
+            </apex:pageBlockSection>    
+               
+            <apex:pageBlockSection title="{!$Label.odigo__odigo_vfp04configurationuniverseselection}" id="ConfigPGB_2" columns="1">
+            	<!-- Universe -->
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04selectuniverse}"/>
+                	<apex:outputPanel styleClass="floatting" layout="block">
+                		<div class="requiredInput">
+	                		<div class="requiredBlock"></div>
+		                    <apex:selectList onchange="refreshLists()" value="{!universeValue}" multiselect="false" size="1" styleClass="singleSelectlist" >
+		                        <apex:selectOptions value="{!UniverseItems}"/>
+		                    </apex:selectList>	 
+	                    </div>        
+	                    <br/>           
+	                    <apex:outputText value="{!errorMessages['VFP04ErrUniverseNotSelected']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrUniverseNotSelected']!=null, true, false )}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <!-- End -->
+            </apex:pageBlockSection>                
+                
+            <apex:pageBlockSection title="{!$Label.odigo__odigo_vfp04configurationskillsselection}" id="ConfigPGB_4" columns="1">
+                <!-- List of skills -->
+                <apex:pageBlockSectionItem >     
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04selectskills}"/>           	
+                    <apex:outputPanel layout="block" styleClass="pnlPickListContainer">                     
+                        <apex:outputPanel styleClass="floatting" layout="block">   
+                        	<div><apex:outputText value="{!$Label.odigo__odigo_vfp04unselectedskillsheader}" styleClass="selectListHeader" /></div> 
+                            <apex:selectList value="{!skillLeftItemsSelected}" id="skillLeftItems" multiselect="true" size="8" styleClass="multipleSelectlist" >
+                                <apex:selectOptions value="{!LeftItems}"/>
+                            </apex:selectList>  
+                        </apex:outputPanel> 
+                        <apex:outputPanel styleClass="pnlIconsContainer" layout="block">
+                            <br/>
+                            <apex:actionFunction name="selectSkill" action="{!selectSkill}" rerender="skillLeftItems,skillRightItems,AgentSkillList,errVFP04ErrSelectSkillsTooMany" />
+                            <apex:image onclick="selectSkill();" value="/s.gif" alt="--&gt;" styleClass="rightArrowIcon icon" />
+                            <br/>
+                            <apex:actionFunction name="unselectSkill" action="{!unselectSkill}" rerender="skillLeftItems,skillRightItems,AgentSkillList,errVFP04ErrSelectSkillsTooMany"/>
+                            <apex:image onclick="unselectSkill();" value="/s.gif" alt="&lt;--" styleClass="leftArrowIcon icon" />  
+                        </apex:outputPanel>                         
+                        <apex:outputPanel styleClass="floatting" layout="block">
+                            <apex:outputPanel styleClass="floatting" layout="block">
+                            	<div><apex:outputText value="{!$Label.odigo__odigo_vfp04selectedskillsheader}" styleClass="selectListHeader" /></div>
+                                <apex:selectList value="{!skillRightItemsSelected}" id="skillRightItems" multiselect="true" size="8" styleClass="multipleSelectlist" >
+                                    <apex:selectOptions value="{!RightItems}"/> 
+                                </apex:selectList>                                     
+                            </apex:outputPanel> 
+                            <apex:outputPanel id="pnlButtonContainer" styleClass="pnlButtonContainer" layout="block">   
+                                <br/>
+                                <apex:actionFunction name="topItem" action="{!topItem}" rerender="skillLeftItems,skillRightItems"/>
+                                <apex:image onclick="topItem();" value="/s.gif" alt="top" styleClass="doubleArrowUp icon" title="top" />    
+                                <br/>           
+                                <apex:actionFunction name="upItem" action="{!upItem}" rerender="skillLeftItems,skillRightItems"/>
+                                <apex:image onclick="upItem();" value="/s.gif" alt="up" styleClass="upArrowIcon icon" title="up" />                         
+                                <br/>
+                                <apex:actionFunction name="downItem" action="{!downItem}" rerender="skillLeftItems,skillRightItems"/>
+                                <apex:image onclick="downItem();" value="/s.gif" alt="down" styleClass="downArrowIcon icon" title="down" />                     
+                                <br/>
+                                <apex:actionFunction name="bottomItem" action="{!bottomItem}" rerender="skillLeftItems,skillRightItems"/>
+                                <apex:image onclick="bottomItem();" value="/s.gif" alt="bottom" styleClass="doubleArrowDwn icon" title="bottom" />                   
+                            </apex:outputPanel>                             
+                        </apex:outputPanel>
+                        
+	                    <apex:outputPanel layout="block">
+	                    	<apex:outputText id="errVFP04ErrSelectSkillsTooMany" value="{!errorMessages['VFP04ErrSelectSkillsTooMany']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectSkillsTooMany']!=null, true, false)}" />
+	                    </apex:outputPanel>     
+	                    <apex:outputPanel layout="block">
+	                    	<apex:outputText value="{!errorMessages['VFP04ErrSelectSkillsAtLeastOne']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectSkillsAtLeastOne']!=null, true, false)}" />
+	                    </apex:outputPanel>     
+                    </apex:outputPanel>                               
+                </apex:pageBlockSectionItem>
+                <!-- End -->
+            </apex:pageBlockSection>
+                            
+            <apex:pageBlockSection title="{!$Label.odigo__odigo_vfp04configurationagentsselection}" id="ConfigPGB_3" columns="1">
+                <!-- List of agents -->
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value=""/>
+	                <apex:outputPanel layout="block">    
+		                <apex:outputPanel layout="block" styleClass="pnlPickListContainer">    
+		                	<apex:outputPanel styleClass="floatting" layout="block">   
+		                		<div><apex:outputText value="{!$Label.odigo__odigo_vfp04unselectedagentsheader}" styleClass="selectListHeader" /></div> 
+							    <apex:selectList value="{!agentLeftItemsSelected}" id="agentLeft" multiselect="true" size="8" styleClass="multipleSelectlist" >
+							        <apex:selectOptions value="{!agentLeftItemsSO}"/>
+							    </apex:selectList>  
+							</apex:outputPanel> 
+							<apex:outputPanel styleClass="pnlIconsContainer" layout="block">
+							    <br/>
+							    <apex:actionFunction name="selectAgent" action="{!selectAgent}" rerender="agentRight, agentLeft, AgentSkillList, errVFP04ErrSelectAgentTooMany" />
+							    <apex:image onclick="selectAgent();" value="/s.gif" alt="--&gt;" styleClass="rightArrowIcon icon" title="right" />
+							    <br/>
+							    <apex:actionFunction name="unSelectAgent" action="{!unselectAgent}" rerender="agentRight, agentLeft, AgentSkillList, errVFP04ErrSelectAgentTooMany"/>
+							    <apex:image onclick="unSelectAgent();" value="/s.gif" alt="&lt;--" styleClass="leftArrowIcon icon" title="left" />  
+							</apex:outputPanel> 
+								 
+							<apex:outputPanel styleClass="floatting" layout="block">
+							    <apex:outputPanel styleClass="floatting" layout="block">
+							    	<div><apex:outputText value="{!$Label.odigo__odigo_vfp04selectedagentsheader}" styleClass="selectListHeader" /></div>
+							        <apex:selectList value="{!agentRightItemsSelected}" id="agentRight" multiselect="true" size="8" styleClass="multipleSelectlist" >
+							            <apex:selectOptions value="{!agentRightItemsSO}"/> 
+							        </apex:selectList>          
+							    </apex:outputPanel>  
+							</apex:outputPanel> 
+							
+						
+		                    <apex:outputPanel layout="block" styleClass="clearer">
+		                    	<apex:outputText value="{!errorMessages['VFP04ErrSelectAgentRequired']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectAgentRequired']!=null, true, false)}" />
+		                    </apex:outputPanel>     
+		                    <apex:outputPanel layout="block" styleClass="clearer">
+		                    	<apex:outputText id="errVFP04ErrSelectAgentTooMany" value="{!errorMessages['VFP04ErrSelectAgentTooMany']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectAgentTooMany']!=null, true, false)}" />
+		                    </apex:outputPanel>  
+		                      
+		                    <apex:outputPanel layout="block" styleClass="clearer">
+		                    	<apex:outputText id="phoneNumbersInfo" styleClass="libInfo" value="{!$Label.odigo__odigo_vfp04phonenumbersinfo}"/>
+		                    </apex:outputPanel>  
+		                    
+						</apex:outputPanel>				
+	                </apex:outputPanel>  	                      
+	            </apex:pageBlockSectionItem>
+
+				<!--  add ui seperator -->
+				<div class="separatorDiv"><br/></div>
+				
+				<!--  List of association agent skill -->
+                <apex:pageBlockSectionItem >
+	               	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04linkagentskill}"/>
+	               	<apex:outputPanel id="AgentSkillList" layout="block">    						
+		            	<apex:variable var="vAgentIndex" value="{!0}" /> 		            	
+					    <apex:actionFunction name="selectSkillForAgent" action="{!selectSkillForAgent}" rerender="skillRight1, skillLeft1" >
+		    	  				<apex:param id="pIndexAgent1" name="pIndexAgent" value="" /> 
+		    	  				<apex:param id="pSkillList1" name="pSkillList" value="" />  
+		    	  				<apex:param id="pUnseledtedSkillList1" name="pUnSelectedSkillList" value="" />     
+					    </apex:actionFunction>					    
+	               		<apex:outputPanel layout="block">                		
+			                <apex:repeat id="currentAgentSkillAssoc" var="currentAgentSkillAssoc" value="{!skillAgentLeftItems}">
+				        		<apex:outputPanel layout="block" styleClass="agentNameContainer">   
+				        			<apex:outputText value="{!selectedAgentNames[vAgentIndex]}" styleClass="agentName" />
+				        		</apex:outputPanel>
+				        		<apex:outputPanel layout="block">    			                				
+			                		<apex:outputPanel styleClass="floatting" layout="block">
+			                			<div><apex:outputText value="{!$Label.odigo__odigo_vfp04unselectedskillsagentheader}" styleClass="selectListHeader" /></div>
+				                		<select id="skillAgentLeftSelect_{!vAgentIndex}" multiple="multiple" class="multipleSelectlist">
+				                			<apex:repeat var="skillAgentLeftOption" value="{!currentAgentSkillAssoc}">
+				                				<option value="{!skillAgentLeftOption}"><apex:OutputText value="{!SkillTranslatedMap[skillAgentLeftOption]}"/></option>
+				                			</apex:repeat>
+				                		</select>
+			                		</apex:outputPanel>
+				 					<apex:outputPanel styleClass="pnlIconsContainer" layout="block">
+									    <br/> 
+									    <apex:image onclick="updateSkillForAgentJS('skillAgentLeftSelect_{!vAgentIndex}', 'skillAgentRightSelect_{!vAgentIndex}', {!vAgentIndex}, true);" value="/s.gif" alt="--&gt;" styleClass="rightArrowIcon icon" title="right" />
+									    <br/>
+									    <apex:image onclick="updateSkillForAgentJS('skillAgentRightSelect_{!vAgentIndex}', 'skillAgentLeftSelect_{!vAgentIndex}', {!vAgentIndex}, false);" value="/s.gif" alt="&lt;--" styleClass="leftArrowIcon icon" title="left" />  
+									</apex:outputPanel> 	     		     	
+				 					<apex:outputPanel styleClass="floatting" layout="block">
+				 						<div><apex:outputText value="{!$Label.odigo__odigo_vfp04selectedskillsagentheader}" styleClass="selectListHeader" /></div>
+				                		<select id="skillAgentRightSelect_{!vAgentIndex}" multiple="multiple" class="multipleSelectlist">
+				                			<apex:repeat var="skillAgentRightOption" value="{!skillAgentRightItems[vAgentIndex]}">
+				                				<option value="{!skillAgentRightOption}"><apex:OutputText value="{!SkillTranslatedMap[skillAgentRightOption]}"/></option>
+				                			</apex:repeat>
+				                		</select>
+				                 	</apex:outputPanel>
+		            			</apex:outputPanel>		
+	            				<apex:variable var="vAgentIndex" value="{!vAgentIndex+1}"/>
+	            				<apex:outputPanel styleClass="clearer" layout="block"></apex:outputPanel><br/>
+					        </apex:repeat>	
+							<apex:variable var="vAgentIndex" value="{!0}" /> 
+		            	</apex:outputPanel>	
+		            	
+	                    <apex:outputPanel layout="block">
+	                    	<apex:outputText value="{!errorMessages['VFP04ErrSelectAgentSkillRequired']}" styleClass="errorMessage" rendered="{!IF(errorMessages['VFP04ErrSelectAgentSkillRequired']!=null, true, false)}" />
+	                    </apex:outputPanel> 			
+	                </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+               <!-- End -->
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection title="{!$Label.odigo__odigo_vfp04configurationsmartcallactivation}" id="ConfigPGB_1" columns="1">
+            	<!-- Access Token -->            	
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.odigo__odigo_vfp04labeltoken}"/>
+                	<apex:outputPanel styleClass="floatting" layout="block">    	
+	                	<apex:commandButton action="{!getToken}" value="{!$Label.odigo__odigo_vfp04btntoken}" disabled="{!enableAllowAccessToken}" />
+	                	<br/>
+                	</apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <!-- End -->
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+		<apex:outputPanel layout="block" id="waitingTextContainer" styleClass="watingTextContainer" rendered="{!isInConfigPush}">
+			<br/>
+			<div class="floatting waitingDiv">
+				<apex:outputText value="{!$Label.odigo__odigo_vfp04waitingforconfiguration}" styleClass="waitingText"/>
+			</div>
+			<apex:image url="{!URLFOR($Resource.Odigo__Odigo_resources, 'img/throbber.gif')}" styleClass="throbber" />
+			<br/><br/>
+		</apex:outputPanel>
+     	<apex:outputPanel styleClass="veil" rendered="{!isInConfigPush}"></apex:outputPanel>
+    
+        <apex:actionFunction name="refreshDemoInfos" action="{!refreshDemoInfos}" rerender="formConfig" />
+    	
+    	<apex:outputPanel id="jsContainerStartPolling" rendered="{!isInConfigPush}">
+    		<script>
+	    		launchPollingCheckConfig();
+    		</script>
+    	</apex:outputPanel>
+    	<apex:outputPanel id="jsContainerStopPolling" rendered="{!NOT(isInConfigPush)}">
+    		<script>
+	    		stopPollingCheckConfig();
+    		</script>
+    	</apex:outputPanel>    
+     </apex:form>
+     
+	<script>
+		deleteCache();
+	</script>
+</apex:page>

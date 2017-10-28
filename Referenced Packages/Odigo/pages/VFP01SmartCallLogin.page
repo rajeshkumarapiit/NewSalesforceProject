@@ -1,0 +1,198 @@
+<apex:page showHeader="false" controller="Odigo.VFC01SmartCallLogin" standardStylesheets="false" language="{!languageSelected}" id="VFP01SmartCallLogin">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>       
+		<style>
+		
+			.errorCustom { font-weight:bold; list-style: none; padding:0px!important; color:red; }
+		
+			@font-face {
+			  font-family: 'Open Sans Condensed';
+			  font-style: normal;
+			  font-weight: 700;
+			  src: local('Open Sans Condensed Bold'), local('OpenSans-CondensedBold'), url({!URLFOR($Resource.Odigo_resources,'/woff/gk5FxslNkTTHtojXrkp-xH8GQ1-f77-_DMylrAuQUHQ.woff')}) format('woff');
+			}
+			
+		</style>
+	
+		<!-- Import resources pack -->
+	    <apex:stylesheet value="{!URLFOR($Resource.Odigo__Odigo_resources,'/css/normalize.css')}"/>
+		
+	    <!--[if IE]> 
+	    <![endif]-->
+	    <!--[if lte IE 7]> <link rel="stylesheet" href="{!URLFOR($Resource.Odigo__Odigo_resources,'/css/smartcallie7.css')}" /><![endif]-->
+	    <!--[if lte IE 8]> <link rel="stylesheet" href="{!URLFOR($Resource.Odigo__Odigo_resources,'/css/smartcallie8.css')}" /><![endif]-->    
+    </head>   
+ 	<body>
+		<apex:form id="formLogin">
+				                        
+			<apex:actionFunction name="setLanguageFrench" action="{!setLanguageFrench}"></apex:actionFunction>
+			<apex:actionFunction name="setLanguageEnglish" action="{!setLanguageEnglish}"></apex:actionFunction>
+		
+			<div id="container" class="container">
+	                
+	            <div id="header" class="header">
+	                <ul id="header_menu" class="header_menu">
+	                    <li><a href="#" id="header_menu_contact">Contactez-nous</a></li>
+	                    <li>
+	                        <a href="#" id="header_menu_lang"><span class="flag french"></span> Langue <span class="lang_select"></span></a>
+	                        <ul class="invisible">
+	                            <li><a href="#" id="lang_english" onclick="setLanguageEnglish();"><span class="flag english"></span> </a></li>
+	                            <li><a href="#" id="lang_french" onclick="setLanguageFrench();"><span class="flag french"></span> </a></li>
+	                        </ul>
+	                    </li>
+	                    <li class="on"><a href="#" id="header_menu_espace"></a></li>
+	                    <li><a href="#" id="header_menu_disconnect"> <span class="disconnect"></span></a></li>
+	                </ul>                
+	                <div class="logo_site"></div>
+	            </div>
+	            
+	            <div id="main_menu" class="main_menu">
+	                <ul class="main_menu_links">
+	                    <li id="main_menu_0" class="on"><a href="#" id="main_menu_content_0"></a></li>
+	                    <li id="main_menu_1"><a href="#" id="main_menu_content_1"></a></li>
+	                    <li id="main_menu_2"><a href="#" id="main_menu_content_2"></a></li>
+	                    <li id="main_menu_3"><a href="#" id="main_menu_content_3"></a></li>
+	                    <li id="main_menu_4"><a href="#" id="main_menu_content_4"></a></li>
+	                    <li id="main_menu_5"><a href="#" id="main_menu_content_5"></a></li>
+	                    <li id="main_menu_6"><a href="#" id="main_menu_content_6"></a></li>
+	                </ul>
+	                
+	                <div method="get" action="#" id="form-search" class="form-search">
+	                    <input type="button" class="button-search" />
+	                    <input type="text" id="input-search" class="input-search" value="Recherche" />
+	                </div>
+	            </div>
+	            
+	            <div id="main" class="main">
+	                <div class="left_menu hidden"></div>
+	
+	                <div class="connexe">
+	                    <div>
+	                        <a href="#" id="connexe_1"></a>
+	                        <div class="img"></div>      
+	                    </div>
+	                    <div>
+	                        <a href="#" id="connexe_2"></a>
+	                        <div class="img"></div>
+	                    </div>
+	                    <div>
+	                        <a href="#" id="connexe_3"></a>
+	                        <div class="img"></div>
+	                    </div>                    
+	               </div>
+	
+	                <div id="content">
+	                    <ul class="breadcrumb">
+	                        <a href="#" id="breadcrumb_home"></a> 
+	                        <span id="breacrumb_before_1">&gt;</span> 
+	                        <a id="breadcrumb_level_1" href="#"></a>
+	                    </ul>
+	                    
+	                    <div class="introduction">
+	                        <h1 id="introduction-login-title">Me connecter</h1>
+	                        <div id="login-form" class="login-form">
+								
+			                    <fieldset id="login-form-input" class="login-form-input">
+			                        <label for="login-id" id="login-id-label">Saisissez votre identifiant de connexion</label>
+			                        <apex:inputText id="login-id" styleClass="login-id" value="{!demoNumber}" /><br/>
+			                        
+			                		<apex:messages styleClass="errorMsg errorCustom" />
+			                		
+			                        <apex:commandButton action="{!connect}" value="{!$Label.odigo__odigo_vfp01login}" id="login-form-submit-btn"/>
+			                    </fieldset>
+			                </div>
+	                    </div>
+	                    
+	                </div>
+	            </div>
+	        
+	            <div class="footer">
+	                <a href="#" id="footer_1"></a> -
+	                <a href="#" id="footer_2"></a> -
+	                <a href="#" id="footer_3"></a> -
+	                <a href="#" id="footer_4"></a> -
+	                <a href="#" id="footer_5"></a> -
+	                <a href="#" id="footer_6"></a> -
+	                <a href="#" id="footer_7"></a> -
+	                <a href="#" id="footer_8"></a>
+	            </div>
+	        </div>
+		</apex:form>
+        
+        <!--  Javascript management -->
+        
+	    <!-- Imports push library Javascript file -->
+	    <apex:includeScript value="{!URLFOR($Resource.Odigo__Odigo_resources, '/js/Odigo_VFP01SmartCallJS.js')}"></apex:includeScript>
+        
+        <script type="text/javascript">
+        var BANK = "1"; // Bank value
+		var SHOP = "2"; // Shop value
+		var mCurrentUniverseValue = "{!universeSelected}";
+		var mWaitingTimeSelected=99;		
+					
+		function reloadCSS() {
+			var mCurrentUniverseCSS = "";
+			if (mCurrentUniverseValue == SHOP) {
+				mCurrentUniverseCSS = "{!URLFOR($Resource.Odigo_resources,'/css/shop4allstyles.css')}";	
+			} 
+			if (mCurrentUniverseValue == BANK) { 
+				mCurrentUniverseCSS = "{!URLFOR($Resource.Odigo_resources,'/css/bank4allstyles.css')}";
+			}
+			
+			var vCSSFile = document.createElement("link");
+			vCSSFile.setAttribute("rel", "stylesheet");
+			vCSSFile.setAttribute("type", "text/css");
+			vCSSFile.setAttribute("href", mCurrentUniverseCSS);
+			document.getElementsByTagName("head")[0].appendChild(vCSSFile);
+		}
+		// Called directly
+		reloadCSS();
+		
+		var mSelectedLanguage = "{!languageSelected}";
+                
+        var mIdsLabelsArray = {"header_menu_contact": ["{!$Label.Odigo_VFP01ContactUs}",
+    			 "{!$Label.Odigo_VFP01ContactUs}"], "header_menu_lang": ["{!$Label.Odigo_VFP01Language}", "{!$Label.Odigo_VFP01Language}"],
+    			 "lang_english": ["<span class='flag english'></span> {!$Label.Odigo_VFP01English}", "<span class='flag english'></span> {!$Label.Odigo_VFP01English}"],
+    			 "lang_french": ["<span class='flag french'></span> {!$Label.Odigo_VFP01French}", "<span class='flag french'></span> {!$Label.Odigo_VFP01French}"],
+    			 "header_menu_espace": ["{!$Label.Odigo_VFP01PersonalArea}", "{!$Label.Odigo_VFP01PersonalArea}"], 
+    			 "header_menu_disconnect": ["{!$Label.Odigo_VFP01LogOff} <span class='disconnect'></span>", "{!$Label.Odigo_VFP01LogOff} <span class='disconnect'></span>"], 
+    			 "main_menu_content_1": ["{!$Label.Odigo_VFP01Private}", "{!$Label.Odigo_VFP01Hifi}"], 
+    			 "main_menu_content_2": ["{!$Label.Odigo_VFP01Credit}", "{!$Label.Odigo_VFP01HomeAppliances}"],
+    	 		 "main_menu_content_3": ["{!$Label.Odigo_VFP01Savings}", "{!$Label.Odigo_VFP01Photo}"], 
+    	 		 "main_menu_content_4": ["{!$Label.Odigo_VFP01Insurance}", "{!$Label.Odigo_VFP01Telephony}"], 
+    	 		 "main_menu_content_5": ["{!$Label.Odigo_VFP01StockMarket}", "{!$Label.Odigo_VFP01Gardening}"], 
+    	 		 "main_menu_content_6": ["", "{!$Label.Odigo_VFP01Sales}"], 
+    	 		 "input-search": ["{!$Label.Odigo_VFP01Search}", "{!$Label.Odigo_VFP01Search}"], 
+    	 		 "connexe_1": ["{!$Label.Odigo_VFP01FAQ}", "{!$Label.Odigo_VFP01FAQ}"], 
+    	 		 "connexe_2": ["{!$Label.Odigo_VFP01CreditCard}", "{!$Label.Odigo_VFP01NeedHelp}"], 
+    	 		 "connexe_3": ["{!$Label.Odigo_VFP01BeInsuredAbroad}", "{!$Label.Odigo_VFP01Delivery}"], 
+				 "footer_1": ["{!$Label.Odigo_VFP01LegalInfo}", "{!$Label.Odigo_VFP01LegalInfo}"], 
+    	 		 "footer_2": ["{!$Label.Odigo_VFP01GeneralRequirements}", "{!$Label.Odigo_VFP01GeneralRequirements}"], 
+    	 		 "footer_3": ["{!$Label.Odigo_VFP01PriceGuide}", "{!$Label.Odigo_VFP01PriceGuide}"], 
+    	 		 "footer_4": ["{!$Label.Odigo_VFP01PermissionGuide}", "{!$Label.Odigo_VFP01PermissionGuide}"], 
+    	 		 "footer_5": ["{!$Label.Odigo_VFP01Help}", "{!$Label.Odigo_VFP01Help}"], 
+    	 		 "footer_6": ["{!$Label.Odigo_VFP01Security}", "{!$Label.Odigo_VFP01Security}"], 
+    	 		 "footer_7": ["{!$Label.Odigo_VFP01DataProtection}", "{!$Label.Odigo_VFP01DataProtection}"], 
+    	 		 "footer_8": ["{!$Label.Odigo_VFP01IDProtection}", "{!$Label.Odigo_VFP01IDProtection}"], 
+    	 		 "breadcrumb_home" : ["{!$Label.Odigo_VFP01Home}", "{!$Label.Odigo_VFP01Home}"],
+    	 		 "breadcrumb_level_1" : ["{!$Label.Odigo_VFP01PersonalArea}", "{!$Label.Odigo_VFP01PersonalArea}"],
+    	 		 "introduction-login-title" : ["{!$Label.Odigo_VFP01ToConnect}", "{!$Label.Odigo_VFP01ToConnect}"],
+    	 		 "login-id-label" : ["{!$Label.Odigo_VFP01EnterDemoId}", "{!$Label.Odigo_VFP01EnterDemoId}"],
+    	 		 "VFP01SmartCallLogin:formLogin:login-form-submit-btn": ["{!$Label.Odigo_VFP01EnterDemoId}", "{!$Label.Odigo_VFP01EnterDemoId}"]
+    	 		 };
+    	 		 
+		if (mCurrentUniverseValue == SHOP) {
+    		Odigo.SmartCall.replaceLabelsStandards(1); 
+			Odigo.SmartCall.addFlags();
+    		Odigo.SmartCall.refreshSpecialFields();
+		} 
+		if (mCurrentUniverseValue == BANK) { 
+    		Odigo.SmartCall.replaceLabelsStandards(0); 
+			Odigo.SmartCall.addFlags();
+    		Odigo.SmartCall.refreshSpecialFields();
+		}
+    	 		 
+        </script>
+        <!--  END Javascript management -->
+	</body>
+</apex:page>

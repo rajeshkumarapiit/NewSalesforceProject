@@ -1,0 +1,33 @@
+<apex:page Controller="AccountListCtr">
+<apex:includeScript value="//code.jquery.com/jquery-2.1.1.min.js"/>
+<apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.18.3/js/jquery.tablesorter.js"/>
+<apex:includeScript value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.18.3/js/jquery.tablesorter.widgets.js"/>
+<apex:stylesheet value="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.18.3/css/theme.jui.css"/>
+<script>
+    $(document).ready(function(){
+        $("table").tablesorter({
+
+        theme : 'jui', 
+
+        headerTemplate : '{content} {icon}',
+
+        widgets : ['uitheme', 'zebra'],
+
+        widgetOptions : {
+          zebra   : ["even", "odd"],
+        }
+
+  });
+    });
+</script>
+<apex:form >
+<apex:pageBlock >
+    <apex:pageBlockTable value="{!accounts}" var="account">
+        <apex:column value="{!account.Name}"/>
+        <apex:column value="{!account.Industry}"/>
+        <apex:column value="{!account.Type}"/>
+        <apex:column value="{!account.Rating}"/>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

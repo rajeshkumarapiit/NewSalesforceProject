@@ -1,0 +1,821 @@
+<apex:page controller="Odigo.VFC01SmartCallSample" showheader="false" standardStylesheets="false" language="{!languageSelected}" id="VFP01SmartCallPage">
+	<head>
+		
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+        	
+			@font-face {
+			  font-family: 'Open Sans Condensed';
+			  font-style: normal;
+			  font-weight: 700;
+			  src: local('Open Sans Condensed Bold'), local('OpenSans-CondensedBold'), url({!URLFOR($Resource.Odigo_resources,'/woff/gk5FxslNkTTHtojXrkp-xH8GQ1-f77-_DMylrAuQUHQ.woff')}) format('woff');
+			}
+			
+        	#skillTable { border-collapse:collapse;	}
+        	
+            #skillTable tr td  { border:thin solid black; }
+			
+			.hidden { display:none; }
+			.displayed {}
+			.btnSubmit { background-color:#2f87ff; }
+            
+        </style>
+		
+		<!-- Import resources pack -->
+	    <apex:stylesheet value="{!URLFOR($Resource.Odigo__Odigo_resources,'/css/normalize.css')}"/>
+	    
+	    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <![endif]-->
+        <!--[if lte IE 7]> <link rel="stylesheet" href="{!URLFOR($Resource.Odigo_resources,'/css/smartcallie7.css')}" /><![endif]-->
+        <!--[if lte IE 8]> <link rel="stylesheet" href="{!URLFOR($Resource.Odigo_resources,'/css/smartcallie8.css')}" /><![endif]-->
+        
+    </head>
+    <body>
+        
+		<apex:form id="languageForm">
+		
+			<apex:actionFunction name="setLanguageFrench" action="{!setLanguageFrench}"></apex:actionFunction>
+			<apex:actionFunction name="setLanguageEnglish" action="{!setLanguageEnglish}"></apex:actionFunction>
+			
+	    	<apex:outputPanel id="sampleContainer">
+		        <div id="container" class="container">
+                
+		            <div id="header" class="header">
+		                <ul id="header_menu" class="header_menu">
+		                    <li class="on"><a href="#" id="header_menu_contact"></a></li>
+		                    <li>
+		                        <a href="#" id="header_menu_lang"><span class="flag french"></span>  <span class="lang_select"></span></a>
+		                        <ul class="invisible">
+		                            <li><a href="#" id="lang_english" onclick="setLanguageEnglish();"><span class="flag english"></span> </a></li>
+		                            <li><a href="#" id="lang_french" onclick="setLanguageFrench();"><span class="flag french"></span> </a></li>
+		                        </ul>
+		                    </li>
+		                    <li><apex:outputLink value="{!$Page.Odigo__VFP01SmartCallLogin}" id="header_menu_espace"></apex:outputLink></li>
+		                    <li><a href="#" id="header_menu_disconnect"> <span class="disconnect"></span></a></li>
+		                </ul>                
+		                <div class="logo_site"></div>
+		            </div>
+		            
+		            <div id="main_menu" class="main_menu">
+		                <ul class="main_menu_links">
+		                    <li id="main_menu_0" class="on"><a href="#" id="main_menu_content_0"></a></li>
+		                    <li id="main_menu_1"><a href="#" id="main_menu_content_1"></a></li>
+		                    <li id="main_menu_2"><a href="#" id="main_menu_content_2"></a></li>
+		                    <li id="main_menu_3"><a href="#" id="main_menu_content_3"></a></li>
+		                    <li id="main_menu_4"><a href="#" id="main_menu_content_4"></a></li>
+		                    <li id="main_menu_5"><a href="#" id="main_menu_content_5"></a></li>
+		                    <li id="main_menu_6"><a href="#" id="main_menu_content_6"></a></li>
+		                </ul>
+		                
+		                <div method="get" action="#" id="form-search" class="form-search">
+		                    <input type="button" class="button-search" />
+		                    <input type="text" id="input-search" class="input-search" value="Recherche" />
+		                </div>
+		            </div>
+		            
+		            <div id="main" class="main">
+		                <ul class="left_menu">
+		                    <li id="left_menu_0" class="on"><a href="#" id="left_menu_content_0"></a></li>
+		                    <li id="left_menu_1"><a href="#" id="left_menu_content_1"> </a></li>
+		                    <li class="separateur" id="separateur_menu_2"></li>
+		                    <li id="left_menu_2"><a href="#" id="left_menu_content_2"> </a></li>
+		                    <li class="separateur" id="separateur_menu_3"></li>
+		                    <li id="left_menu_3"><a href="#" id="left_menu_content_3"></a></li>
+		                </ul>
+		
+		                <div class="connexe">
+		                    <div>
+		                        <a href="#" id="connexe_1"></a>
+		                        <div class="img"></div>      
+		                    </div>
+		                    <div>
+		                        <a href="#" id="connexe_2"></a>
+		                        <div class="img"></div>
+		                    </div>
+		                    <div>
+		                        <a href="#" id="connexe_3"></a>
+		                        <div class="img"></div>
+		                    </div>                    
+		               </div>
+		                
+		                <div id="content">
+		                    <ul class="breadcrumb">
+		                        <a href="#" id="breadcrumb_home">Accueil</a> 
+		                        <span id="breacrumb_before_1">&gt;</span> 
+		                        <a id="breadcrumb_level_1" href="#">Contactez-nous</a>
+		                    </ul>
+		
+		                    
+		                    <div class="introduction">
+		                        <h1 id="introduction-contact-title"></h1>
+		                        <p class="introduction-text" id="intro-text"></p>
+		                    </div>
+		                    
+		                    <table class="detail" id="detail">
+		                        <thead id="detail_thead">
+		                            <tr>
+		                                <th id="detail_header_reason"></th>
+		                                <th id="detail_header_wait"></th>
+		                                <th id="detail_header_call">&nbsp;</th>
+		                            </tr>
+		                        </thead>
+		                        
+		                        <tbody id="detail_tbody">
+		                            <tr>
+		                                <td id="detail_reason_0"></td>
+		                                <td id="detail_wait_0"></td>
+		                                <td><input type="button" id="detail_call_0" onclick="Odigo.SmartCall.displayPopupSubmit(vTabTimes[0], vTabSkills[0], 0);" class="off"  /></td>
+		                            </tr>
+		                            <tr>
+		                                <td id="detail_reason_1"></td>
+		                                <td id="detail_wait_1"></td>
+		                                <td><input type="button" id="detail_call_1" onclick="Odigo.SmartCall.displayPopupSubmit(vTabTimes[1], vTabSkills[1], 1);" class="off"  /></td>
+		                            </tr>
+		                            <tr>
+		                                <td id="detail_reason_2"></td>
+		                                <td id="detail_wait_2"></td>
+		                                <td><input type="button" id="detail_call_2" onclick="Odigo.SmartCall.displayPopupSubmit(vTabTimes[2], vTabSkills[2], 2);" class="off"  /></td>
+		                            </tr>
+		                            <tr>
+		                                <td id="detail_reason_3"></td>
+		                                <td id="detail_wait_3"></td>
+		                                <td><input type="button" id="detail_call_3" onclick="Odigo.SmartCall.displayPopupSubmit(vTabTimes[3], vTabSkills[3], 3);" class="off"  /></td>
+		                            </tr>
+		                            <tr>
+		                                <td id="detail_reason_4"></td>
+		                                <td id="detail_wait_4"></td>
+		                                <td><input type="button" id="detail_call_4" onclick="Odigo.SmartCall.displayPopupSubmit(vTabTimes[4], vTabSkills[4], 4);" class="off"  /></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>                                                           
+		                </div>
+		            </div>
+		        
+		            <div class="footer">
+		                <a href="#" id="footer_1"></a> -
+		                <a href="#" id="footer_2"></a> -
+		                <a href="#" id="footer_3"></a> -
+		                <a href="#" id="footer_4"></a> -
+		                <a href="#" id="footer_5"></a> -
+		                <a href="#" id="footer_6"></a> -
+		                <a href="#" id="footer_7"></a> -
+		                <a href="#" id="footer_8"></a>
+		            </div>
+			        
+			        <!--  Popup sumit -->
+			        <apex:outputPanel id="popupSubmit">
+				        <div class="popin-wrapper popin-callback hidden" id="popin-callback">
+							<div id="popin-submit" class="popin">
+								<h1 id="popin-title-submit"></h1>
+								<a href="#" id="popin-close-btn" class="popin-close-btn" onclick="Odigo.SmartCall.hidePopupSubmit()"></a>
+								
+								<p id="popin-text-submit"></p>
+								<div id="webcallback-wrapper" class="webcallback-wrapper">
+									<div id="form-webcallback" class="form-webcallback" method="post" action="#">
+										<fieldset id="form-webcallback-submit" class="form-webcallback-submit">
+											<apex:InputText id="webcallback-indicatif" styleClass="webcallback-indicatif" value="{!phonePrefix}" onclick="Odigo.SmartCall.displayIndicatif();"/>
+											<apex:InputText id="form-webcallback-tel" styleClass="form-webcallback-tel" value="{!phoneNumber}" onfocus="Odigo.SmartCall.inputIndicatifFocus();" /><br/>
+											<apex:inputHidden value="{!skillIdSelected}" id="skillIdSelected"/>
+											<apex:commandButton id="form-webcallback-submit-btn" styleClass="form-webcallback-submit-btn btnSubmit" value="{!$Label.odigo__odigo_vfp01ok}" rerender="errorPanel" action="{!askForCallBack}" oncomplete="Odigo.SmartCall.displayPopupInfo({!LEN(errorMessage) > 0});"></apex:commandButton>
+											<br/>
+	                                		
+											<!-- French -->
+											<apex:outputPanel id="indListingFr" rendered="{!languageSelected=='fr_FR'}" layout="block">
+												<div class="indicatifs-listing" id="indicatifs-listing">												
+													<div onclick="Odigo.SmartCall.selectIndicatif('+27');">Afrique du Sud<span>+27</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+355');">Albanie<span>+355</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+213');">Algérie<span>+213</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+49');">Allemagne<span>+49</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+376');">Andorre<span>+376</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+244');">Angola<span>+244</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1264');">Anguilla<span>+1264</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1268');">Antigua &amp; Barbuda<span>+1268</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+966');">Arabie Saoudite<span>+966</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+54');">Argentine<span>+54</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+374');">Arménie<span>+374</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+297');">Aruba<span>+297</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+247');">Ascension (Ile de)<span>+247</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+441481');">Aurigny<span>+44 1481</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+61');">Australie<span>+61</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+43');">Autriche<span>+43</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+994');">Azerbaidjan<span>+994</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1242');">Bahamas<span>+1242</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+973');">Bahrein<span>+973</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+880');">Bangladesh<span>+880</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1246');">Barbade<span>+1246</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+32');">Belgique<span>+32</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+501');">Belize<span>+501</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+229');">Benin<span>+229</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1441');">Bermudes<span>+1441</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+375');">Bielorussie<span>+375</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+95');">Birmanie (Myanmar)<span>+95</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+591');">Bolivie<span>+591</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+599-7');">Bonaire<span>+599-7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+387');">Bosnie<span>+387</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+267');">Botswana<span>+267</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+55');">Brésil<span>+55</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+359');">Bulgarie<span>+359</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+226');">Burkina Faso<span>+226</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+257');">Burundi<span>+257</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+855');">Cambodge<span>+855</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+237');">Cameroun<span>+237</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1');">Canada<span>+1</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+238');">Cap Vert<span>+238</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+56');">Chili<span>+56</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+86');">Chine<span>+86</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+61');">Christmas (Iles)<span>+61</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+357');">Chypre<span>+357</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+61');">Coco (Iles)<span>+61</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+57');">Colombie<span>+57</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+269');">Comores<span>+269</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+243');">Congo (RDC)<span>+243</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+242');">Congo (RPC)<span>+242</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+682');">Cook (Iles)<span>+682</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+82');">Coree du Sud<span>+82</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+506');">Costa Rica<span>+506</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+243');">Cote d'Ivoire<span>+243</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+385');">Croatie<span>+385</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+53');">Cuba<span>+53</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+599-9');">Curacao<span>+599-9</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+45');">Danemark<span>+45</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+253');">Djibouti<span>+253</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1767');">Dominique<span>+1767</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+20');">Egypte<span>+20</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+503');">El Salvador<span>+503</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+971');">Emirats Arabes Unis<span>+971</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+593');">Equateur<span>+593</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+34');">Espagne<span>+34</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+372');">Estonie<span>+372</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1');">Etats-Unis<span>+1</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+251');">Ethiopie<span>+251</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+500');">Falklands (Malouines)<span>+500</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+679');">Fidji (Iles)<span>+679</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+358');">Finlande<span>+358</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+33');">France<span>+33</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+241');">Gabon<span>+241</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+995');">Georgie<span>+995</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+233');">Ghana<span>+233</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+350');">Gibraltar<span>+350</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+30');">Grèce<span>+30</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1473');">Grenade<span>+1473</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+299');">Groenland<span>+299</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+(0)590');">Guadeloupe<span>+(0)590</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+502');">Guatemala<span>+502</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+441481');">Guernesey<span>+441481</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+233');">Guinee<span>+233</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+240');">Guinée bissau<span>+240</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+245');">Guinée Equatoriale<span>+245</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+592');">Guyana<span>+592</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+509');">Haiti<span>+509</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+441481');">Herm<span>+441481</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+504');">Honduras<span>+504</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+852');">Hong Kong<span>+852</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+36');">Hongrie<span>+36</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1345');">Iles Cayman<span>+1345</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1284');">Iles Vierges GB<span>+1284</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1340');">Iles Vierges USA<span>+1340</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+91');">Inde<span>+91</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+62');">Indonesie<span>+62</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+964');">Irak<span>+964</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+98');">Iran<span>+98</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+353');">Irlande<span>+353</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+354');">Islande<span>+354</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+972');">Israel<span>+972</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+39');">Italie<span>+39</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1876');">Jamaique<span>+1876</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+81');">Japon<span>+81</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+441481');">Jersey<span>+441481</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+962');">Jordanie<span>+962</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+7');">Kazakhstan<span>+7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+254');">Kenya<span>+254</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+996');">Kirghizistan<span>+996</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+965');">Koweit<span>+965</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+856');">Laos<span>+856</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+266');">Lesotho<span>+266</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+371');">Lettonie<span>+371</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+961');">Liban<span>+961</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+218');">Libye<span>+218</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+423');">Liechtenstein<span>+423</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+370');">Lituanie<span>+370</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+352');">Luxembourg<span>+352</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+853');">Macao<span>+853</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+389');">Macédoine<span>+389</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+261');">Madagascar<span>+261</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+60');">Malaisie<span>+60</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+265');">Malawi<span>+265</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+960');">Maldives<span>+960</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+223');">Mali<span>+223</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+356');">Malte<span>+356</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1670');">Mariannes (Iles)<span>+1670</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+212');">Maroc<span>+212</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+(0)596');">Martinique<span>+(0)596</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+230');">Maurice (Ile)<span>+230</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+222');">Mauritanie<span>+222</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+269');">Mayotte<span>+269</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+52');">Mexique<span>+52</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+691');">Micronesie<span>+691</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+373');">Moldavie<span>+373</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+377');">Monaco<span>+377</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+382');">Montenegro<span>+382</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1664');">Montserrat<span>+1664</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+258');">Mozambique<span>+258</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+264');">Namibie<span>+264</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+505');">Nicaragua<span>+505</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+227');">Niger<span>+227</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+234');">Nigéria<span>+234</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+672');">Norfolk (Iles)<span>+672</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+47');">Norvege<span>+47</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+687');">Nouvelle Caledonie<span>+687</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+64');">Nouvelle Zelande<span>+64</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+968');">Oman<span>+968</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+256');">Ouganda<span>+256</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+998');">Ouzbekistan<span>+998</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+92');">Pakistan<span>+92</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+680');">Palau<span>+680</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+507');">Panama<span>+507</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+675');">Papouasie Nouvelle Guinée<span>+675</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+595');">Paraguay<span>+595</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+31');">Pays-Bas<span>+31</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+51');">Pérou<span>+51</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+63');">Philippines<span>+63</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+48');">Pologne<span>+48</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+689');">Polynesie Francaise<span>+689</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1787');">Porto Rico<span>+1787</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+351');">Portugal<span>+351</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+974');">Qatar<span>+974</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+236');">Rép. Centrafricaine<span>+236</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1809');">Rép. Dominicaine<span>+1809</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+420');">Rép. Tchèque<span>+420</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+(0)262');">Reunion<span>+(0)262</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+40');">Roumanie<span>+40</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+44');">Royaume Uni<span>+44</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+7');">Russie<span>+7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+250');">Rwanda<span>+250</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+378');">Saint Marin (Rép.)<span>+378</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+685');">Samoa occidentales<span>+685</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+239');">Sao Tomé et Principe<span>+239</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+221');">Sénégal<span>+221</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+441481');">Sercq<span>+441481</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+248');">Seychelles<span>+248</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+65');">Singapour<span>+65</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+421');">Slovaquie<span>+421</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+386');">Slovenie<span>+386</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+249');">Soudan<span>+249</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+94');">Sri Lanka<span>+94</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1869');">St Kitts<span>+1869</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+508');">St Pierre et Miquelon<span>+508</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1784');">St Vincent et les Grenadines<span>+1784</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1758');">Ste Lucie<span>+1758</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+46');">Suede<span>+46</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+41');">Suisse<span>+41</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+597');">Surinam<span>+597</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+268');">Swaziland<span>+268</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+963');">Syrie<span>+963</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+992');">Tadjikistan<span>+992</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+886');">Taiwan<span>+886</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+255');">Tanzanie<span>+255</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+235');">Tchad<span>+235</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+66');">Thailande<span>+66</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+228');">Togo<span>+228</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1868');">Trinidad et Tobago<span>+1868</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+216');">Tunisie<span>+216</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+993');">Turkmenistan<span>+993</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1649');">Turks &amp; Caicos<span>+1649</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+90');">Turquie<span>+90</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+380');">Ukraine<span>+380</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+598');">Uruguay<span>+598</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+678');">Vanuatu<span>+678</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+58');">Venezuela<span>+58</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+84');">Vietnam<span>+84</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+967');">Yemen<span>+967</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+260');">Zambie<span>+260</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+263');">Zimbabwe<span>+263</span></div>
+													
+												</div>
+											</apex:outputPanel>
+											<!-- English -->
+											<apex:outputPanel id="indListingEn" rendered="{!languageSelected!='fr_FR'}" layout="block">
+												<div class="indicatifs-listing" id="indicatifs-listing">
+													<div onclick="Odigo.SmartCall.selectIndicatif('+7840');">Abkhazia<span>+7 840</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif(' +7940');">Abkhazia<span> +7 940</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+99544');">Abkhazia<span>+99 544</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+93');">Afghanistan<span>+93</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+35818');">Åland Islands<span>+358 18</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+355');">Albania<span>+355</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+213');">Algeria<span>+213</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1684');">American Samoa<span>+1684</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+376');">Andorra<span>+376</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+244');">Angola<span>+244</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1264');">Anguilla<span>+1 264</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1268');">Antigua and Barbuda<span>+1 268</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+54');">Argentina<span>+54</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+374');">Armenia<span>+374</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+297');">Aruba<span>+297</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+247');">Ascension<span>+247</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+61');">Australia<span>+61</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+672');">Australian External Territories<span>+672</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+43');">Austria<span>+43</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+994');">Azerbaijan<span>+994</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1242');">Bahamas<span>+1 242</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+973');">Bahrain<span>+973</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+880');">Bangladesh<span>+880</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1246');">Barbados<span>+1 246</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1268');">Barbuda<span>+1 268</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+375');">Belarus<span>+375</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+32');">Belgium<span>+32</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+501');">Belize<span>+501</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+229');">Benin<span>+229</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1441');">Bermuda<span>+1 441</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+975');">Bhutan<span>+975</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+591');">Bolivia<span>+591</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5997');">Bonaire<span>+599 7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+387');">Bosnia and Herzegovina<span>+387</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+267');">Botswana<span>+267</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+55');">Brazil<span>+55</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+246');">British Indian Ocean Territory<span>+246</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1284');">British Virgin Islands<span>+1 284</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+673');">Brunei Darussalam<span>+673</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+359');">Bulgaria<span>+359</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+226');">Burkina Faso<span>+226</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+95');">Burma<span>+95</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+257');">Burundi<span>+257</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+855');">Cambodia<span>+855</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+237');">Cameroon<span>+237</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1');">Canada<span>+1</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+238');">Cape Verde<span>+238</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5993');">Caribbean Netherlands<span>+599 3</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5994');">Caribbean Netherlands<span>+599 4</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5997');">Caribbean Netherlands<span>+599 7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1345');">Cayman Islands<span>+1 345</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+236');">Central African Republic<span>+236</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+235');">Chad<span>+235</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+64');">Chatham Island, New Zealand<span>+64</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+56');">Chile<span>+56</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+86');">China<span>+86</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+61');">Christmas Island<span>+61</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+61');">Cocos (Keeling) Islands<span>+61</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+57');">Colombia<span>+57</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+269');">Comoros<span>+269</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+242');">Congo<span>+242</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+243');">Congo, Democratic Republic of the (Zaire)<span>+243</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+682');">Cook Islands<span>+682</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+506');">Costa Rica<span>+506</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+225');">Côte d'Ivoire<span>+225</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+385');">Croatia<span>+385</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+53');">Cuba<span>+53</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5399');">Guantanamo Bay, Cuba<span>+53 99</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5999');">Curaçao<span>+599 9</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+357');">Cyprus<span>+357</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+420');">Czech Republic<span>+420</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+45');">Denmark<span>+45</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+246');">Diego Garcia<span>+246</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+253');">Djibouti<span>+253</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1767');">Dominica<span>+1 767</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1809');">Dominican Republic<span>+1 809</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif(' +1 829');">Dominican Republic<span> +1 829</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1849');">Dominican Republic<span>+1 849</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+670');">East Timor<span>+670</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+56');">Easter Island<span>+56</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+593');">Ecuador<span>+593</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+20');">Egypt<span>+20</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+503');">El Salvador<span>+503</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8812');">Ellipso (Mobile Satellite service)<span>+881 2</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8813');">Ellipso (Mobile Satellite service)<span>+881 3</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+88213');">EMSAT (Mobile Satellite service)<span>+882 13</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+240');">Equatorial Guinea<span>+240</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+291');">Eritrea<span>+291</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+372');">Estonia<span>+372</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+251');">Ethiopia<span>+251</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+500');">Falkland Islands<span>+500</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+298');">Faroe Islands<span>+298</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+679');">Fiji<span>+679</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+358');">Finland<span>+358</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+33');">France<span>+33</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+596');">French Antilles<span>+596</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+594');">French Guiana<span>+594</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+689');">French Polynesia<span>+689</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+241');">Gabon<span>+241</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+220');">Gambia<span>+220</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+995');">Georgia<span>+995</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+49');">Germany<span>+49</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+233');">Ghana<span>+233</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+350');">Gibraltar<span>+350</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+881');">Global Mobile Satellite System (GMSS)<span>+881</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8818');">Globalstar (Mobile Satellite Service)<span>+881 8</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8819');">Globalstar (Mobile Satellite Service)<span> +881 9</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+30');">Greece<span>+30</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+299');">Greenland<span>+299</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1473');">Grenada<span>+1 473</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+590');">Guadeloupe<span>+590</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1671');">Guam<span>+1 671</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+502');">Guatemala<span>+502</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+44');">Guernsey<span>+44</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+224');">Guinea<span>+224</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+245');">Guinea-Bissau<span>+245</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+592');">Guyana<span>+592</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+509');">Haiti<span>+509</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+504');">Honduras<span>+504</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+852');">Hong Kong<span>+852</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+36');">Hungary<span>+36</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+354');">Iceland<span>+354</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8810');">ICO Global (Mobile Satellite Service)<span>+881 0</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8811');">ICO Global (Mobile Satellite Service)<span>+881 1</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+91');">India<span>+91</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+62');">Indonesia<span>+62</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+870');">Inmarsat SNAC<span>+870</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+800');">International Freephone Service<span>+800</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+808');">International Shared Cost Service (ISCS)<span>+808</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+98');">Iran<span>+98</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+964');">Iraq<span>+964</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+353');">Ireland<span>+353</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8816');">Iridium (Mobile Satellite service)<span>+881 6</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+8817');">Iridium (Mobile Satellite service)<span>+881 7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+44');">Isle of Man<span>+44</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+972');">Israel<span>+972</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+39');">Italy<span>+39</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1876');">Jamaica<span>+1 876</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+4779');">Jan Mayen<span>+47 79</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+81');">Japan<span>+81</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+44');">Jersey<span>+44</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+962');">Jordan<span>+962</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+76');">Kazakhstan<span>+76</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+77');">Kazakhstan<span>+77</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+254');">Kenya<span>+254</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+686');">Kiribati<span>+686</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+850');">Korea, North<span>+850</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+82');">Korea, South<span>+82</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+965');">Kuwait<span>+965</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+996');">Kyrgyzstan<span>+996</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+856');">Laos<span>+856</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+371');">Latvia<span>+371</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+961');">Lebanon<span>+961</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+266');">Lesotho<span>+266</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+231');">Liberia<span>+231</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+218');">Libya<span>+218</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+423');">Liechtenstein<span>+423</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+370');">Lithuania<span>+370</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+352');">Luxembourg<span>+352</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+853');">Macau<span>+853</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+389');">Macedonia<span>+389</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+261');">Madagascar<span>+261</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+265');">Malawi<span>+265</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+60');">Malaysia<span>+60</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+960');">Maldives<span>+960</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+223');">Mali<span>+223</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+356');">Malta<span>+356</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+692');">Marshall Islands<span>+692</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+596');">Martinique<span>+596</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+222');">Mauritania<span>+222</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+230');">Mauritius<span>+230</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+262');">Mayotte<span>+262</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+52');">Mexico<span>+52</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+691');">Micronesia, Federated States of<span>+691</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1808');">Midway Island, USA<span>+1 808</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+373');">Moldova<span>+373</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+377');">Monaco<span>+377</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+976');">Mongolia<span>+976</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+382');">Montenegro<span>+382</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1664');">Montserrat<span>+1 664</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+212');">Morocco<span>+212</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+258');">Mozambique<span>+258</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+264');">Namibia<span>+264</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+674');">Nauru<span>+674</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+977');">Nepal<span>+977</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+31');">Netherlands<span>+31</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1869');">Nevis<span>+1 869</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+687');">New Caledonia<span>+687</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+64');">New Zealand<span>+64</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+505');">Nicaragua<span>+505</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+227');">Niger<span>+227</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+234');">Nigeria<span>+234</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+683');">Niue<span>+683</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+672');">Norfolk Island<span>+672</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1670');">Northern Mariana Islands<span>+1 670</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+47');">Norway<span>+47</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+968');">Oman<span>+968</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+92');">Pakistan<span>+92</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+680');">Palau<span>+680</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+970');">Palestinian territories<span>+970</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+507');">Panama<span>+507</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+675');">Papua New Guinea<span>+675</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+595');">Paraguay<span>+595</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+51');">Peru<span>+51</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+63');">Philippines<span>+63</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+64');">Pitcairn Islands<span>+64</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+48');">Poland<span>+48</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+351');">Portugal<span>+351</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1787');">Puerto Rico<span>+1 787</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1939');">Puerto Rico<span>+1 939</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+974');">Qatar<span>+974</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+262');">Réunion<span>+262</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+40');">Romania<span>+40</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+7');">Russia<span>+7</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+250');">Rwanda<span>+250</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5994');">Saba<span>+599 4</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+590');">Saint Barthélemy<span>+590</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+290');">Saint Helena<span>+290</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1869');">Saint Kitts and Nevis<span>+1 869</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1758');">Saint Lucia<span>+1 758</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+590');">Saint Martin (France)<span>+590</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+508');">Saint Pierre and Miquelon<span>+508</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1784');">Saint Vincent and the Grenadines<span>+1 784</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+685');">Samoa<span>+685</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+378');">San Marino<span>+378</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+239');">São Tomé and Príncipe<span>+239</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+966');">Saudi Arabia<span>+966</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+221');">Senegal<span>+221</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+381');">Serbia<span>+381</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+248');">Seychelles<span>+248</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+232');">Sierra Leone<span>+232</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+65');">Singapore<span>+65</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+5993');">Sint Eustatius<span>+599 3</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1721');">Sint Maarten (Netherlands)<span>+1 721</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+421');">Slovakia<span>+421</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+386');">Slovenia<span>+386</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+677');">Solomon Islands<span>+677</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+252');">Somalia<span>+252</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+27');">South Africa<span>+27</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+500');">South Georgia and the South Sandwich Islands<span>+500</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+99534');">South Ossetia<span>+995 34</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+211');">South Sudan<span>+211</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+34');">Spain<span>+34</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+94');">Sri Lanka<span>+94</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+249');">Sudan<span>+249</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+597');">Suriname<span>+597</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+4779');">Svalbard<span>+47 79</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+268');">Swaziland<span>+268</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+46');">Sweden<span>+46</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+41');">Switzerland<span>+41</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+963');">Syria<span>+963</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+886');">Taiwan<span>+886</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+992');">Tajikistan<span>+992</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+255');">Tanzania<span>+255</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+66');">Thailand<span>+66</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+88216');">Thuraya (Mobile Satellite service)<span>+882 16</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+228');">Togo<span>+228</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+690');">Tokelau<span>+690</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+676');">Tonga<span>+676</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1868');">Trinidad and Tobago<span>+1 868</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+2908');">Tristan da Cunha<span>+290 8</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+216');">Tunisia<span>+216</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+90');">Turkey<span>+90</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+993');">Turkmenistan<span>+993</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1649');">Turks and Caicos Islands<span>+1 649</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+688');">Tuvalu<span>+688</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+256');">Uganda<span>+256</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+380');">Ukraine<span>+380</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+971');">United Arab Emirates<span>+971</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+44');">United Kingdom<span>+44</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1');">United States<span>+1</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+878');">Universal Personal Telecommunications (UPT)<span>+878</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+598');">Uruguay<span>+598</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1340');">US Virgin Islands<span>+1 340</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+998');">Uzbekistan<span>+998</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+678');">Vanuatu<span>+678</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+58');">Venezuela<span>+58</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+39066');">Vatican City State (Holy See)<span>+39 066</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+379');">Vatican City State (Holy See)<span> +379</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+84');">Vietnam<span>+84</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+1808');">Wake Island, USA<span>+1 808</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+681');">Wallis and Futuna<span>+681</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+967');">Yemen<span>+967</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+260');">Zambia<span>+260</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+255');">Zanzibar<span>+255</span></div>
+													<div onclick="Odigo.SmartCall.selectIndicatif('+263');">Zimbabwe<span>+263</span></div>
+												</div>
+											</apex:outputPanel>
+										</fieldset>
+										<apex:outputpanel id="errorPanel">
+											<fieldset class="visible error">
+												<span id="wrong-indicatif-error">{!errorMessage}</span>
+											</fieldset>
+										</apex:outputpanel>
+									</div>             
+									<strong id="popin-status"></strong>
+						
+								</div>     
+							</div>
+						</div>     
+					</apex:outputPanel>
+					
+					<!-- End popup submit -->
+					
+					<!--  Popup info  -->
+					 <div class="popin-wrapper popin-info hidden" id="popin-info">
+		                <div id="popin-submit" class="popin">
+		                    <h1 id="popin-title-infos"></h1>
+		                    <a href="#" id="popin-close-btn" class="popin-close-btn"></a>
+		                    
+		                    	<p id="popin-text-info">
+		                        </p>
+		                    
+		                    <div id="form-webcallback" class="form-webcallback" method="post" action="#">
+		                        <fieldset id="webcallback-cancel" class="webcallback-cancel">
+		                            <input type="submit" id="webcallback-cancel-btn" class="webcallback-cancel-btn" value="{!$Label.odigo__odigo_vfp01ok}" />
+		                        </fieldset>
+		                    </div>
+		                    
+		                    <strong id="popin-status"></strong>
+		                </div>
+		            </div>
+					
+					<!--  END popup info  -->
+		        </div><!-- // container -->
+	        
+       			<div id="veil" class="veil invisible"></div>
+	        	
+	        </apex:outputPanel>
+	        
+	        		
+			<c:C01SmartCall skills="{!selectedSkills}" pLanguage="{!languageSelected}" />
+			
+			<apex:actionFunction name="retrieveOrgConfiguration" action="{! retrieveOrgConfiguration }" reRender="" />
+			
+		</apex:form>
+        
+    </body>
+    
+    <!-- Imports push library Javascript file -->
+    <apex:includeScript value="{!URLFOR($Resource.Odigo__Odigo_resources, '/js/Odigo_VFP01SmartCallJS.js')}"></apex:includeScript> 
+    
+	<script type="text/javascript"> 
+       	var BANK = "1"; // Bank value
+		var SHOP = "2"; // Shop value
+		var mCurrentUniverseValue = "{!universeSelected}";
+		var mWaitingTimeSelected=99;		
+					
+		function reloadCSS() {
+			var mCurrentUniverseCSS = "";
+			if (mCurrentUniverseValue == SHOP) {
+				mCurrentUniverseCSS = "{!URLFOR($Resource.Odigo_resources,'/css/shop4allstyles.css')}";	
+			} 
+			if (mCurrentUniverseValue == BANK) { 
+				mCurrentUniverseCSS = "{!URLFOR($Resource.Odigo_resources,'/css/bank4allstyles.css')}";
+			}
+			
+			var vCSSFile = document.createElement("link");
+			vCSSFile.setAttribute("rel", "stylesheet");
+			vCSSFile.setAttribute("type", "text/css");
+			vCSSFile.setAttribute("href", mCurrentUniverseCSS);
+			document.getElementsByTagName("head")[0].appendChild(vCSSFile);
+		}
+		// Called directly
+		reloadCSS();
+			
+		var mSelectedLanguage = "{!languageSelected}";
+		
+		// Tab of { HTML id : [ bank value, shop value ] }
+    	var mIdsLabelsArray = {"header_menu_contact": ["{!$Label.Odigo_VFP01ContactUs}",
+    			 "{!$Label.Odigo_VFP01ContactUs}"], "header_menu_lang": ["{!$Label.Odigo_VFP01Language}", "{!$Label.Odigo_VFP01Language}"],
+    			 "lang_english": ["<span class='flag english'></span> {!$Label.Odigo_VFP01English}", "<span class='flag english'></span> {!$Label.Odigo_VFP01English}"],
+    			 "lang_french": ["<span class='flag french'></span> {!$Label.Odigo_VFP01French}", "<span class='flag french'></span> {!$Label.Odigo_VFP01French}"],
+    			 "VFP01SmartCallPage:languageForm:header_menu_espace": ["{!$Label.Odigo_VFP01PersonalArea}", "{!$Label.Odigo_VFP01PersonalArea}"], 
+    			 "header_menu_disconnect": ["{!$Label.Odigo_VFP01LogOff} <span class='disconnect'></span>", "{!$Label.Odigo_VFP01LogOff} <span class='disconnect'></span>"], 
+    			 "main_menu_content_1": ["{!$Label.Odigo_VFP01Private}", "{!$Label.Odigo_VFP01Hifi}"], 
+    			 "main_menu_content_2": ["{!$Label.Odigo_VFP01Credit}", "{!$Label.Odigo_VFP01HomeAppliances}"],
+    	 		 "main_menu_content_3": ["{!$Label.Odigo_VFP01Savings}", "{!$Label.Odigo_VFP01Photo}"], 
+    	 		 "main_menu_content_4": ["{!$Label.Odigo_VFP01Insurance}", "{!$Label.Odigo_VFP01Telephony}"], 
+    	 		 "main_menu_content_5": ["{!$Label.Odigo_VFP01StockMarket}", "{!$Label.Odigo_VFP01Gardening}"], 
+    	 		 "main_menu_content_6": ["", "{!$Label.Odigo_VFP01Sales}"], 
+    	 		 "input-search": ["{!$Label.Odigo_VFP01Search}", "{!$Label.Odigo_VFP01Search}"], 
+    	 		 "left_menu_content_0": ["{!$Label.Odigo_VFP01ContactUs}", "{!$Label.Odigo_VFP01ContactUs}"], 
+    	 		 "left_menu_content_1": ["{!$Label.Odigo_VFP01UsefulNumbers}", "{!$Label.Odigo_VFP01YourAccount}"], 
+    	 		 "left_menu_content_2": ["{!$Label.Odigo_VFP01JoinUs}", "{!$Label.Odigo_VFP01ShippingPackages}"], 
+    	 		 "left_menu_content_3": ["", "{!$Label.Odigo_VFP01SecuredPayment}"], 
+    	 		 "connexe_1": ["{!$Label.Odigo_VFP01FAQ}", "{!$Label.Odigo_VFP01FAQ}"], 
+    	 		 "connexe_2": ["{!$Label.Odigo_VFP01CreditCard}", "{!$Label.Odigo_VFP01NeedHelp}"], 
+    	 		 "connexe_3": ["{!$Label.Odigo_VFP01BeInsuredAbroad}", "{!$Label.Odigo_VFP01Delivery}"], 
+    	 		 "introduction-contact-title": ["{!$Label.Odigo_VFP01ContactUs}", "{!$Label.Odigo_VFP01ContactUs}"], 
+    	 		 "intro-text": ["{!$Label.Odigo_VFP01ContactUsText}", "{!$Label.Odigo_VFP01ContactUsText}"], 
+    	 		 "detail_header_reason": ["{!$Label.Odigo_VFP01ContactReasons}", "{!$Label.Odigo_VFP01ContactReasons}"], 
+    	 		 "detail_header_wait": ["{!$Label.Odigo_VFP01EstimatedWaitingTime}", "{!$Label.Odigo_VFP01EstimatedWaitingTime}"], 
+    	 		 "footer_1": ["{!$Label.Odigo_VFP01LegalInfo}", "{!$Label.Odigo_VFP01LegalInfo}"], 
+    	 		 "footer_2": ["{!$Label.Odigo_VFP01GeneralRequirements}", "{!$Label.Odigo_VFP01GeneralRequirements}"], 
+    	 		 "footer_3": ["{!$Label.Odigo_VFP01PriceGuide}", "{!$Label.Odigo_VFP01PriceGuide}"], 
+    	 		 "footer_4": ["{!$Label.Odigo_VFP01PermissionGuide}", "{!$Label.Odigo_VFP01PermissionGuide}"], 
+    	 		 "footer_5": ["{!$Label.Odigo_VFP01Help}", "{!$Label.Odigo_VFP01Help}"], 
+    	 		 "footer_6": ["{!$Label.Odigo_VFP01Security}", "{!$Label.Odigo_VFP01Security}"], 
+    	 		 "footer_7": ["{!$Label.Odigo_VFP01DataProtection}", "{!$Label.Odigo_VFP01DataProtection}"], 
+    	 		 "footer_8": ["{!$Label.Odigo_VFP01IDProtection}", "{!$Label.Odigo_VFP01IDProtection}"], 
+    	 		 "breadcrumb_home" : ["{!$Label.Odigo_VFP01Home}", "{!$Label.Odigo_VFP01Home}"],
+    	 		 "breadcrumb_level_1" : ["{!$Label.Odigo_VFP01ContactUs}", "{!$Label.Odigo_VFP01ContactUs}"]    	 		 
+    	 		 };
+
+		var mIdsLabelsPopupArray = { 'popin-close-btn': '{!$Label.Odigo_VFP01Close}', 
+				'form-webcallback-submit-btn': '{!$Label.Odigo_VFP01Validate}',
+				'form-webcallback-cancel-btn': '{!$Label.odigo__odigo_vfp01ok}' };
+				
+		var mTextPopupInfo = "<br/>{!$Label.Odigo_VFP01RequestConidered} <br/><br/> {!$Label.Odigo_VFP01AgentCallBack}";
+		var mTextPopupSubmit = [ "{!$Label.Odigo_VFP01AgentAvailibity}", "<br/> {!$Label.Odigo_VFP01EnterPhone}" ];
+		var mPrefixPopupSubmit = [  "{!$Label.Odigo_VFP01AgentAvailibilityLessOnePrefix}", "{!$Label.Odigo_VFP01AgentAvailibilityPrefix}" ];
+		
+		
+		
+		// called on load functions
+		refreshLabels();
+		retrieveOrgConfiguration();
+	
+	</script>
+
+</apex:page>

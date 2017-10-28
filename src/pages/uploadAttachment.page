@@ -1,0 +1,67 @@
+<apex:page standardController="contact" extensions="uploadAttachments">
+   <apex:form >
+   <apex:pageMessages ></apex:pageMessages>
+    <apex:outputLabel value="Document Name" />
+    <apex:inputtext value="{!attachFile.Name}" />
+    
+    <apex:outputLabel value="Description" />
+    <apex:inputText value="{!attachFile.Description}" />
+    
+    <apex:outputLabel value="file to upload" />
+    <apex:actionRegion >
+    <apex:inputFile value="{!attachFile .body}" filename="{!attachFile.name}" fileSize="{!attachFile.BodyLength}" onchange="addToList();" />
+    
+    <apex:actionFunction name="addToList" action="{!addMoreRow}" />
+    </apex:actionRegion>
+    <br/>
+    
+   <apex:outputPanel id="attach">
+        <apex:variable value="{!0}" var="positionN"/>
+        <table border="1">
+            <tr>
+                <td>
+                    <b>Document Name</b>
+                </td>
+                <td>
+                    <b>Description</b>
+                </td>
+                <td>
+                     <b>Document Size(KB)</b>
+                </td>
+                <td>
+                     <b>Action</b>
+                </td>
+            </tr>
+            <apex:repeat value="{!mapkeyValue}" var="keyVal" >
+                <tr>
+                    <td>
+                       {!documentNameMap[keyVal]}
+                    </td>
+                    <td>
+                        {!documentDesMap[keyVal]}
+                    </td>
+                    <td>
+                        {!documentBodyLMap[keyVal]}
+                    </td>
+                    <td>
+                        <a onclick="deleteRecord('{!keyVal}');" >Delete</a> 
+                    </td>   
+                </tr>
+                    
+                   <apex:variable value="{!positionN+1}" var="positionN"/>            
+                </apex:repeat>
+            </table>
+           <apex:actionRegion >
+            <apex:actionFunction name="deleteRecord" action="{!deleteAttachment}" reRender="attach">
+                    
+                 <apex:param assignTo="{!tobeDeleted}" name="deleteRows" value=""/>
+        
+            </apex:actionFunction>
+            
+           </apex:actionRegion>
+        
+        ipAddress-{!ipAddress}
+           
+    </apex:outputPanel>
+    </apex:form>
+</apex:page>

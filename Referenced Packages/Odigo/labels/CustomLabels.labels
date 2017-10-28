@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Odigo_AP02UtilityExpirationLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_AP02UtilityExpirationLabel</shortDescription>
+        <value>Your application is expired.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_AP04InstallType</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_AP04InstallType</shortDescription>
+        <value>prod</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_C03HideMetrics</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label displayed on &quot;Hide metrics&quot; link</shortDescription>
+        <value>- Hide metrics</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_C03ShowMetrics</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label displayed on &quot;Show metrics&quot; link</shortDescription>
+        <value>+ Show metrics</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_CC03AgentTable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Header of Agent column in Agent table</shortDescription>
+        <value>Agent</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_CC03GTTable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Header of GT column in GT table</shortDescription>
+        <value>Queue</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_CallCenterName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_CallCenterName</shortDescription>
+        <value>Odigo_Sample</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_Debug</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Magic number to enable debug mode</shortDescription>
+        <value>1789</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01AgentAvailibilityLessOnePrefix</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01AgentAvailibilityLessOnePrefix</shortDescription>
+        <value>less than</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01AgentAvailibilityPrefix</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01AgentAvailibilityPrefix</shortDescription>
+        <value>about</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01AgentAvailibity</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01AgentAvailibity</shortDescription>
+        <value>One of our agents will be available in</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01AgentCallBack</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01AgentCallBack</shortDescription>
+        <value>An agent will call you back in</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01BeInsuredAbroad</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01BeInsuredAbroad</shortDescription>
+        <value>Be insured&lt;br/&gt; abroad</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Close</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ContactReasons</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ContactReasons</shortDescription>
+        <value>Contact reasons</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ContactUs</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ContactUs</shortDescription>
+        <value>Contact us</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ContactUsText</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ContactUsText</shortDescription>
+        <value>How can we help you ? Choose a contact reason in the list below and we will contact you as soon as possible.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Credit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Credit</shortDescription>
+        <value>Credit</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01CreditCard</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01CreditCard</shortDescription>
+        <value>Credit card</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01DataProtection</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01DataProtection</shortDescription>
+        <value>Data protection</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Delivery</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Delivery</shortDescription>
+        <value>24h delivery</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01English</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01English</shortDescription>
+        <value>English</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01EnterDemoId</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01EnterDemoId</shortDescription>
+        <value>Enter your demonstration ID</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01EnterPhone</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01EnterPhone</shortDescription>
+        <value>Please, enter your phone number in international format so that we can contact you</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ErrDemoNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ErrDemoNumber</shortDescription>
+        <value>The demonstration ID provided is not correct.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ErrorCallBack</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ErrorCallBack</shortDescription>
+        <value>An error occured, please try again.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01EstimatedWaitingTime</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01EstimatedWaitingTime</shortDescription>
+        <value>Estimated waiting time</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01FAQ</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01FAQ</shortDescription>
+        <value>FAQ</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01French</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01French</shortDescription>
+        <value>French</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Gardening</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Gardening</shortDescription>
+        <value>Gardening / Tinkering</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01GeneralRequirements</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01GeneralRequirements</shortDescription>
+        <value>General requirements</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Help</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Help</shortDescription>
+        <value>Help</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Hifi</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Hifi</shortDescription>
+        <value>Hifi</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Home</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Home</shortDescription>
+        <value>Home</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01HomeAppliances</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01HomeAppliances</shortDescription>
+        <value>Home appliances</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01IDProtection</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01IDProtection</shortDescription>
+        <value>Id protection</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Insurance</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Insurance</shortDescription>
+        <value>Insurance</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01JoinUs</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01JoinUs</shortDescription>
+        <value>Join us</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Language</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Language</shortDescription>
+        <value>Language</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01LegalInfo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01LegalInfo</shortDescription>
+        <value>Legal information</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01LogOff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01LogOff</shortDescription>
+        <value>Log off</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Login</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Login</shortDescription>
+        <value>Login</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01NeedHelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01NeedHelp</shortDescription>
+        <value>Need help ?</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Ok</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Ok</shortDescription>
+        <value>OK</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01PermissionGuide</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01PermissionGuide</shortDescription>
+        <value>Permission guide</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01PersonalArea</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01PersonalArea</shortDescription>
+        <value>Personal area</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01PhoneInvalid</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01PhoneInvalid</shortDescription>
+        <value>Please select a phone number like this : (+33)612345678</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Photo</shortDescription>
+        <value>Photo / Camcorder</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01PriceGuide</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01PriceGuide</shortDescription>
+        <value>Price guide</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Private</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Private</shortDescription>
+        <value>Private</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01RequestConidered</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01RequestConidered</shortDescription>
+        <value>Your request has been considered.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Sales</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Sales</shortDescription>
+        <value>Sales</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Savings</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Savings</shortDescription>
+        <value>Savings</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Search</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01SecuredPayment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01SecuredPayment</shortDescription>
+        <value>Secured payment</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Security</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Security</shortDescription>
+        <value>Security</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ShippingPackages</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ShippingPackages</shortDescription>
+        <value>Shipping packages</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01StockMarket</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01StockMarket</shortDescription>
+        <value>Stock market</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Telephony</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Telephony</shortDescription>
+        <value>Telephony</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01ToConnect</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01ToConnect</shortDescription>
+        <value>To connect</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Unavailable</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Unavailable</shortDescription>
+        <value>Closed</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01UsefulNumbers</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01UsefulNumbers</shortDescription>
+        <value>Useful numbers</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01Validate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01Validate</shortDescription>
+        <value>Validate</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP01YourAccount</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP01YourAccount</shortDescription>
+        <value>Your account</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02AvailableBreak</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02AvailableBreak</shortDescription>
+        <value>Available</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02ComingAndGoing</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02ComingAndGoing</shortDescription>
+        <value>Switch interlocutor</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02ConferenceCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02ConferenceCall</shortDescription>
+        <value>3 way conference</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02Dashboard</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02Dashboard</shortDescription>
+        <value>Dashboard</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02ErrAccessGateway</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02ErrAccessGateway</shortDescription>
+        <value>It is impossible to access the gateway server, please try again later or contact support</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02ErrNoOpener</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02ErrNoOpener</shortDescription>
+        <value>The calling window has been closed, transfer is canceled.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02HangUpCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02HangUpCall</shortDescription>
+        <value>Hang up</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02HoldOnCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02HoldOnCall</shortDescription>
+        <value>Put on hold</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02Logoff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02Logoff</shortDescription>
+        <value>Logoff</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02Logon</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02Logon</shortDescription>
+        <value>Login</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02OdigoCTIPhoneNumberIncorrect</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02OdigoCTIPhoneNumberIncorrect</shortDescription>
+        <value>Phone number is not well formatted, it must be composed exclusively with character &apos;+&apos; and digits.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PickUpCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PickUpCall</shortDescription>
+        <value>Pick up</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupAgent</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupAgent</shortDescription>
+        <value>Agent</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupAssociateName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupAssociateName</shortDescription>
+        <value>Associate a name</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupBlind</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupBlind</shortDescription>
+        <value>Blind</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupHalfSupervised</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupHalfSupervised</shortDescription>
+        <value>Half supervised</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupMiniDirectory</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupMiniDirectory</shortDescription>
+        <value>Mini directory</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupOpenNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupOpenNumber</shortDescription>
+        <value>Open number</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupSelectNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupSelectNumber</shortDescription>
+        <value>Fill in the number</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupSkill</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupSkill</shortDescription>
+        <value>Skill</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupSupervised</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupSupervised</shortDescription>
+        <value>Supervised</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupTransfer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupTransfer</shortDescription>
+        <value>Call transfer</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupTransferFrom</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupTransferFrom</shortDescription>
+        <value>Transfer from</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupTransferTo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupTransferTo</shortDescription>
+        <value>Transfer to</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02PopupValidate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02PopupValidate</shortDescription>
+        <value>Validate</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02RecordCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02RecordCall</shortDescription>
+        <value>Record</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02Skills</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02Skills</shortDescription>
+        <value>Skills</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusAlerting</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusAlerting</shortDescription>
+        <value>Alerting</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusAlertingCustomer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusAlertingCustomer</shortDescription>
+        <value>Customer Alerting</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusCommunication</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusCommunication</shortDescription>
+        <value>Communication</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusDisturbed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusDisturbed</shortDescription>
+        <value>Disturbed</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusHoldCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusHoldCall</shortDescription>
+        <value>Hold Call</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusLogged</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusLogged</shortDescription>
+        <value>Logged</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusLogoff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusLogoff</shortDescription>
+        <value>Logoff</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusReserved</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusReserved</shortDescription>
+        <value>Reserved</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusSelected</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusSelected</shortDescription>
+        <value>Selected</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusUnknown</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusUnknown</shortDescription>
+        <value>Unknown</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StatusWaiting</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StatusWaiting</shortDescription>
+        <value>Waiting</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02StopRecordCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02StopRecordCall</shortDescription>
+        <value>Stop record</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02TakeBackCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02TakeBackCall</shortDescription>
+        <value>Resume</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02TransferCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02TransferCall</shortDescription>
+        <value>Transfer</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02UnionBreak</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02UnionBreak</shortDescription>
+        <value>Union break</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02UserNotConfigured</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02UserNotConfigured</shortDescription>
+        <value>Your user is associated to Odigo sample call center but is not configured in the Odigo administration.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP02WrapupBreak</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP02WrapupBreak</shortDescription>
+        <value>Wrap Up</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP03AgentTableTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP03AgentTableTitle</shortDescription>
+        <value>Agent monitoring board</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP03GtTableTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP03GtTableTitle</shortDescription>
+        <value>Queue monitoring board</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ApplicationExpired</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ApplicationExpired</shortDescription>
+        <value>Your package has expired since {0}</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ApplicationValid</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ApplicationValid</shortDescription>
+        <value>Your package is valid until {0}</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04BtnCancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04BtnSave</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save button</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04BtnToken</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Smartcall button</shortDescription>
+        <value>Activation</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ConfigurationAgentsSelection</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ConfigurationAgentsSelection</shortDescription>
+        <value>Agents configuration</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ConfigurationNoneValue</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ConfigurationNoneValue</shortDescription>
+        <value>--None--</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ConfigurationSkillsSelection</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ConfigurationSkillsSelection</shortDescription>
+        <value>IVR and Smart Call configuration</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ConfigurationSmartCallActivation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ConfigurationSmartCallActivation</shortDescription>
+        <value>Smart Call activation</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ConfigurationUniverseSelection</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ConfigurationUniverseSelection</shortDescription>
+        <value>Business demonstration universe</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04DemoID</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04DemoID</shortDescription>
+        <value>Demonstration ID</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04DemoInfos</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04DemoInfos</shortDescription>
+        <value>Demonstration information access</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04DownloadiOSURL</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04DownloadiOSURL</shortDescription>
+        <value>Download Smart Call Application for IOS</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrGatewayDown</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ErrGatewayDown</shortDescription>
+        <value>Error occured during installation on the gateway server. Please uninstall and install again.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrPushErrorOccured</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ErrPushErrorOccured</shortDescription>
+        <value>An error occured while saving configuration, please save again.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrSelectAgentRequired</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ErrSelectAgentRequired</shortDescription>
+        <value>At least one agent must be selected</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrSelectAgentSkillRequired</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ErrSelectAgentSkillRequired</shortDescription>
+        <value>Agents must have at least one skill.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrSelectAgentTooMany</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message, maximum number of agents</shortDescription>
+        <value>Too much values, maximum is</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrSelectSkillsAtLeastOne</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ErrSelectSkillsAtLeastOne</shortDescription>
+        <value>At least one motive must be selected.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrSelectSkillsTooMany</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04ErrSelectSkillsTooMany</shortDescription>
+        <value>Too much values, maximum is</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04ErrUniverseNotSelected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required universe</shortDescription>
+        <value>Please select a universe</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04LabelToken</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Smartcall authentication button</shortDescription>
+        <value>Activate Smart Call access</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04LinkAgentSkill</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Link agent to the skill</shortDescription>
+        <value>Assign skills to agents</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04OdigoIVR</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04OdigoIVR</shortDescription>
+        <value>IVR access number</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04PhoneNumbersInfo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04PhoneNumbersInfo</shortDescription>
+        <value>Phone numbers should be entered in international format: 00 33 (...) or +33 (...)</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04SelectSkills</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select skills</shortDescription>
+        <value>Select  the contact reasons</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04SelectUniverse</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select universe</shortDescription>
+        <value>Select the universe</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04SelectedAgentsHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04SelectedAgentsHeader</shortDescription>
+        <value>Selected agents</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04SelectedSkillsAgentHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04SelectedSkillsAgentHeader</shortDescription>
+        <value>Selected skills</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04SelectedSkillsHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04SelectedSkillsHeader</shortDescription>
+        <value>Selected contact reasons</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Page title</shortDescription>
+        <value>Odigo / IVR / Smart Call Configuration</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04TokenBackButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04TokenBackButton</shortDescription>
+        <value>Back to configuration</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04TokenHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04TokenHeader</shortDescription>
+        <value>Congratulations</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04TokenText</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04TokenText</shortDescription>
+        <value>Your access to Smart Call iOS is now available.</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04URLSmartCall</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04URLSmartCall</shortDescription>
+        <value>URL of Smart Call Web site</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04UnSelectedAgentsHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04UnSelectedAgentsHeader</shortDescription>
+        <value>Available agents</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04UnSelectedSkillsHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04UnSelectedSkillsHeader</shortDescription>
+        <value>Available contact reasons</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04UnselectedSkillsAgentHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04UnselectedSkillsAgentHeader</shortDescription>
+        <value>Available skills</value>
+    </labels>
+    <labels>
+        <fullName>Odigo_VFP04WaitingForConfiguration</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Odigo_VFP04WaitingForConfiguration</shortDescription>
+        <value>Please wait, configuration is loading...</value>
+    </labels>
+</CustomLabels>

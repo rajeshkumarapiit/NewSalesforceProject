@@ -1,0 +1,399 @@
+<apex:page showHeader="false" controller="Odigo.VFC02OdigoCTI" cache="false" id="VFP02OdigoCTI" action="{! retrieveOrgConfiguration }">
+<style>
+body { overflow: hidden; }
+.notDisplayed { display: none; }
+.displayed { }
+.grey-text-bold select { color: grey!important; }
+.grey-text-bold { color: grey!important; font-weight: bold; }
+.errorCustom { font-weight:bold; list-style: none; padding:0px!important; }
+.errorCustom li { padding:0px; margin: 0px; }
+.vertical-headband .middle-buttons { margin: 5px 0px!important; }
+.disabledButton { 
+opacity: 0.5; 
+cursor:auto!important;
+filter:alpha(opacity=50);
+filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+}
+.disabledButton.button-blue:hover { background-position: 5px -1690px; }
+.disabledButton.button-red:hover { background-position: 5px -1864px; }
+.empty-block { overflow-x: hidden!important; }
+.btnPauseOverridden { background-position: -87px -1938px!important; }
+.redText { color: #C34C56!important; }
+.yellowText { color: #FF9900!important; }
+.greenText { color: #89B429!important; }
+.cyanText { color: #008bca!important; }
+.select-dispo select { color: grey; }
+.displayedInfos { padding-left: 2px; padding-top: 1px; }
+.iconDemo { height: 38px; width: 190px; } 
+</style>
+
+<apex:outputPanel layout="block" id="OdigoSoftPhone" styleClass="OdigoSoftPhone">
+
+	<!-- Import resources pack -->
+    <apex:stylesheet value="{!URLFOR($Resource.Odigo__Odigo_resources,'./css/odigo.css')}"/>
+
+    <!-- Imports Open CTI JavaScript library. -->
+    <script src="/support/api/28.0/interaction.js" type="text/javascript"></script>                
+                
+    <!-- Imports push library Javascript file -->
+    <apex:includeScript value="{!URLFOR($Resource.Odigo__Odigo_resources, '/js/Odigo_VFP02OdigoCTIPushJS.js')}"></apex:includeScript>
+        
+    <apex:form id="formCallWS">
+        
+        <!--  Action function to call set flag horizontal that will redisplay screen -->
+        <apex:actionFunction name="setFlagHorizontal" action="{!setFlagHorizontal}" rerender="buttonsWS" oncomplete="Odigo.Softphone.initOdigo();" />
+                
+		<!--  Action function to call get State and to be sure long polling is already initialized -->
+		<apex:actionFunction name="wsRefreshState" action="{!wsRefreshState}" rerender=""/>
+		
+		<!--  Action function to call logon -->
+		<apex:actionFunction name="wsLogon" action="{!wsLogon}" rerender="breaksSL,breaksSL_h" oncomplete="Odigo.Softphone.refreshStatusTemporarly();"/>
+		
+		<!--  Action function to call logon -->		    
+		<apex:actionFunction name="wsLogoff" action="{!wsLogoff}" rerender=""  />
+
+		<apex:actionFunction name="wsTakeBackCall" action="{!wsTakeBackCall}" rerender="" />
+		<apex:actionFunction name="wsHoldOnCall" action="{!wsHoldOnCall}" rerender="" />
+		<apex:actionFunction name="wsBreakInOrOut" action="{!wsBreakInOrOut}" reRender="horloge-time,chrono-time" />
+		<apex:actionFunction name="wsBreakOut" action="{!wsBreakOut}" reRender="" />
+        <apex:actionFunction name="wsOutgoingCall" action="{!wsOutgoingCall}" reRender="" >
+        	<apex:param id="pPhoneNumber" name="pPhoneNumber" value="" />  
+        </apex:actionFunction>
+        <apex:actionFunction name="wsWrapUpEnd" action="{!wsWrapUpEnd}" reRender="" />
+        <apex:actionFunction name="wsTransferCall" action="{!wsTransferCall}" reRender="" >
+        	<apex:param id="pPhoneNumberTransfer" name="pPhoneNumberTransfer" value="" />  
+        </apex:actionFunction>
+        <apex:actionFunction name="wsComingAndGoingCall" action="{!wsComingAndGoingCall}" reRender="" />
+        <apex:actionFunction name="wsConferenceCall" action="{!wsConferenceCall}" reRender="" />
+        <apex:actionFunction name="wsHangUpCall" action="{!wsHangUpCall}" reRender="" />
+        <apex:actionFunction name="wsRecordCall" action="{!wsRecordCall}" reRender="" />
+        <apex:actionFunction name="wsStopRecordCall" action="{!wsStopRecordCall}" reRender="" />
+        
+		<apex:outputPanel layout="block" id="buttonsWS">
+		
+			<apex:messages styleClass="errorMsg errorCustom"/>
+			<div id="errorConfig" class="errorMsg errorCustom"></div>
+						
+			<!-- Vertical mode -->
+			<apex:outputPanel layout="block" id="pnlVertical" rendered="{!NOT(isHorizontal)}">
+		
+				<div class="vertical-headband">
+					<div class="call-control">
+						<div class="header-control">
+							<div id="logo" class="header-logo">
+								<div class="sprite-img sprite-logo"></div>
+							</div>
+							<div class="header-icons">
+								<div id="btnRegister" title="Enregistrement" class="sprite-img sprite-ico_cassette" style="display:none;"></div>
+		
+								<!-- <div id="btnListenSilence" title="Écoute silencieuse" class="sprite-img sprite-ico_sound_off"></div> -->
+							</div>
+							<div id="btnDc" class="dc-button blue-text-bold">
+								 <div class="sprite-img sprite-ico_reco"></div>
+								 <span>{!$Label.Odigo_VFP02Logon}</span>
+							</div>
+						</div>
+						<div class="com-sup blue-text-bold" style="color:grey">
+							{!$Label.Odigo_VFP02Skills}&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;{!$Label.Odigo_VFP02Dashboard}
+						</div>
+						<div id="selectDispo" class="select-dispo grey-text-bold">
+								<apex:selectList id="breaksSL" value="{!breakSelected}" multiselect="false" size="1" >
+			                        <apex:selectOptions value="{!breaksItems}"/>
+			                    </apex:selectList>	 
+			                    <div id="btnPause" class="btn-pause notDisplayed"/>
+						</div>						
+						<div id="timers" class="timers">
+							<div class="sprite-img sprite-ico_horloge"></div><span id="horloge-time">00:00:00</span>
+							<div class="sprite-img sprite-ico_chrono"></div><span id="chrono-time">00:00:00</span>
+						</div>
+						<div class="infos-timers">
+							<apex:image id="iconDemo" value="{!URLFOR($Resource.Odigo__Odigo_resources, '/img/Odigo-demo-mode.png')}" />
+							<!-- <div>
+								<span></span>
+								<span id="infos-timers-text-1"></span>
+							</div>
+							<div>
+								<span id="infos-timers-2" class="big-blue-text-bold">&nbsp;</span><br/>
+								<span id="infos-timers-text-2">&nbsp;</span>
+							</div>
+							<div>
+								<span id="infos-timers-3" class="big-blue-text-bold">&nbsp;</span><br/>
+								<span id="infos-timers-text-3">&nbsp;</span>
+							</div>
+							<div>
+								<span id="infos-timers-4" class="big-blue-text-bold">&nbsp;</span><br/>
+								<span  id="infos-timers-text-4">&nbsp;</span>
+							</div>
+							<div>
+								<span id="infos-timers-5" class="big-blue-text-bold">&nbsp;</span><br/>
+								<span id="infos-timers-text-5">&nbsp;</span>
+							</div> -->
+						</div>
+					</div>
+					<div class="icon-list-horizontal">
+						<!-- <div id="btnOutCall" class="icon icon-pho-inactive"></div>
+						<div id="btnRdv" class="icon icon-cal-inactive"></div>
+						<div id="btnSms" class="icon icon-sms-inactive"></div> -->
+					</div>
+					<div class="left-block-odigo">
+						<table class="infos-tel">
+							<tr class="infos-tel-row">
+								<td class="infos-tel-element">
+									<div class="sprite-img sprite-ico_clavier_phone"></div>
+								</td>
+								<td class="infos-tel-element">
+									<span id="info-tel1"></span>
+								</td>
+							</tr>
+							<tr class="infos-tel-row">
+								<td class="infos-tel-element">
+									<div class="sprite-img sprite-ico_graph"></div>
+								</td>
+								<td class="infos-tel-element">
+									<span id="info-tel2"></span>
+								</td>
+							</tr>
+							<tr class="infos-tel-row">
+								<td class="infos-tel-element">
+									<div class="sprite-img sprite-ico_user"></div>
+								</td>
+								<td class="infos-tel-element">
+									<span id="info-tel3"></span>
+								</td>
+							</tr>
+							<tr class="infos-tel-row">
+								<td class="infos-tel-element">
+									<div class="sprite-img sprite-ico_Folder"></div>
+								</td>
+								<td class="infos-tel-element">
+									<span id="info-tel4"></span>
+								</td>
+							</tr>
+						</table>
+						<div id="listInfos" class="empty-block displayedInfos">
+						</div>
+					</div>										
+					<table class="middle-buttons">
+						<tr class="row-buttons">
+							<td id="btnRecord" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02RecordCall}</td >
+							<td id="btnWait" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02HoldOnCall}</td >
+						</tr>
+						<tr class="row-buttons">
+							<td id="btnVeV" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02ComingAndGoing}</td>
+							<td id="btnTransfert" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02transferCall}</td>
+						</tr>
+						<tr class="row-buttons">
+							<td id="btnConf3" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02ConferenceCall}</td>
+							<td id="btnDecr" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02PickUpCall}</td>
+						</tr>
+						<tr class="row-buttons">
+							<td class="item-button"></td>
+							<td id="btnRacc" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02HangUpCall}</td>
+						</tr>
+					</table>
+	
+				</div>
+		
+			</apex:outputPanel>
+		
+<!---------------------------------------Horizontal component  ------------------------------------------------>		
+		
+			<apex:outputPanel layout="block" id="pnlHorizontal" rendered="{!isHorizontal}">
+				<div class="horizontal-headband">
+					<div class="left-block-odigo">
+						<div class="infos-tel">
+							<div class="infos-tel-row">
+								<div class="infos-tel-element">
+									<div class="sprite-img sprite-ico_clavier_phone"></div>
+								</div>
+								<div class="infos-tel-element">
+									<span id="info-tel1"></span>
+								</div>
+							</div>
+							<div class="infos-tel-row">
+								<div class="infos-tel-element">
+									<div class="sprite-img sprite-ico_graph"></div>
+								</div>
+								<div class="infos-tel-element">
+									<span id="info-tel2"></span>
+								</div>
+							</div>
+							<div class="infos-tel-row">
+								<div class="infos-tel-element">
+									<div class="sprite-img sprite-ico_user"></div>
+								</div>
+								<div class="infos-tel-element">
+									<span id="info-tel3"></span>
+								</div>
+							</div>
+							<div class="infos-tel-row">
+								<div class="infos-tel-element">
+									<div class="sprite-img sprite-ico_Folder"></div>
+								</div>
+								<div class="infos-tel-element">
+									<span id="info-tel4"></span>
+								</div>
+							</div>
+						</div>
+						<div id="listInfos" class="empty-block displayedInfos">
+						</div>
+					</div>
+		
+					 <table class="middle-buttons">
+						<tr class="row-buttons">
+							<td id="btnConf3" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02ConferenceCall}</td>
+							<td id="btnWait" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02HoldOnCall}</td>
+							<td id="btnDecr" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02PickUpCall}</td>
+						</tr>
+		
+						<tr class="row-buttons">
+							<td id="btnVeV" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02ComingAndGoing}</td>
+							<td id="btnTransfert" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02transferCall}</td>
+							<td id="btnRacc" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02HangUpCall}</td>
+						</tr>
+						<tr class="row-buttons">
+							<td class="item-button"></td>
+							<td id="btnRecord" class="item-button button-grey disabledButton">{!$Label.Odigo_VFP02RecordCall}</td>
+							<td class="item-button"></td>
+						</tr>
+					</table>		
+					
+					<!--<div class="white-vertical-separator">
+					</div>-->
+							
+					<div class="icon-list-vertical">
+						<!-- <div id="btnOutCall" title="" class="icon icon-pho-inactive"></div>
+						<div id="btnRdv" title="" class="icon icon-cal-inactive"></div>
+						<div id="btnSms" title="" class="icon icon-sms-inactive"></div> -->
+					</div>
+		
+					<div class="call-control">
+						<div class="header-control">
+							<div id="logo" class="header-logo">
+								<div class="sprite-img sprite-logo"></div>
+							</div>		
+							<div class="header-icons">
+								<div id="btnRegister" title="Enregistrement" class="sprite-img sprite-ico_cassette" style="display:none;"></div>
+								<!-- <div id="btnListenSilence" title="Écoute silencieuse" class="sprite-img sprite-ico_sound_off"></div> -->
+							</div>						
+							<div id="btnDc" class="dc-button blue-text-bold" style="float:right;">
+								 <div class="sprite-img sprite-ico_reco ico-conn"></div>
+								 <span>{!$Label.Odigo_VFP02Logon}</span>
+							</div>
+						</div>
+						<div class="com-sup blue-text-bold" style="color:grey">
+							 {!$Label.Odigo_VFP02Skills}&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;{!$Label.Odigo_VFP02Dashboard}
+						</div>
+												
+						<div id="selectDispo" class="select-dispo-small grey-text-bold">
+							<apex:selectList id="breaksSL_h" value="{!breakSelected}" multiselect="false" size="1" >
+		                        <apex:selectOptions value="{!breaksItems}"/>
+		                    </apex:selectList>	 
+			                <div id="btnPause" class="btn-pause notDisplayed"/>
+						</div>
+		
+						<div id="timers" class="timers">
+							<div class="sprite-img sprite-ico_horloge"></div><span id="horloge-time">00:00:00</span>
+							<div class="sprite-img sprite-ico_chrono"></div><span id="chrono-time">00:00:00</span>
+						</div>
+						<div class="infos-timers">
+							<apex:image id="iconDemo_h" value="{!URLFOR($Resource.Odigo__Odigo_resources, '/img/Odigo-demo-mode.png')}" />
+							<!-- <div>
+								<span id="infos-timers-1" class="big-blue-text-bold"></span><br/>
+								<span id="infos-timers-text-1"></span>
+							</div>
+							<div>
+								<span id="infos-timers-2" class="big-blue-text-bold"></span><br/>
+								<span id="infos-timers-text-2"></span>
+							</div>
+							<div>
+								<span id="infos-timers-3" class="big-blue-text-bold"></span><br/>
+								<span id="infos-timers-text-3"></span>
+							</div>
+							<div>
+								<span id="infos-timers-4" class="big-blue-text-bold"></span><br/>
+								<span id="infos-timers-text-4"></span>
+							</div>
+							<div>
+								<span id="infos-timers-5" class="big-blue-text-bold"></span><br/>
+								<span id="infos-timers-text-5"></span>
+							</div> -->
+						</div>
+					</div>
+				</div>
+	
+			</apex:outputPanel>
+						    		
+		</apex:outputPanel>
+
+    </apex:form>      
+    
+</apex:outputPanel>    
+    
+<!--------------------------------------------------JS management  -------------------------------------------->
+	<script>
+		///////////////////////////// Hack IE ////////////////////////////////////
+			// If not JSON load
+			if (!this.JSON) {
+				var vScript = '<script type="text/javascript" src="{!URLFOR($Resource.Odigo_resources, '/js/Odigo_Json.js')}" />';
+				document.write(vScript);
+			}
+	</script>		
+	
+    <!-- Imports Odigo JS -->
+    <apex:includeScript value="{!URLFOR($Resource.Odigo__Odigo_resources, '/js/Odigo_VFP02OdigoCTIJS.js')}"></apex:includeScript>
+    <!-- <apex:includeScript value="{!$Resource.Odigo_VFP02OdigoCTIJS}"></apex:includeScript>-->
+        
+    <script>      
+    		
+    	// Variables initialization
+   		var mButtonLabels = { "wsLogon" : "{!$Label.Odigo_VFP02Logon}", "wsLogoff" : "{!$Label.Odigo_VFP02Logoff}", "wsRecord":"{!$Label.Odigo_VFP02RecordCall}", "wsStopRecord":"{!$Label.Odigo_VFP02StopRecordCall}", "wsHoldOnCall":"{!$Label.Odigo_VFP02HoldOnCall}", "wsTakeBackCall":"{!$Label.Odigo_VFP02TakeBackCall}" };
+   		var mStatusMatrix = { "200": ["{!$Label.Odigo_VFP02StatusLogoff}", "redText"],"201": ["{!$Label.Odigo_VFP02StatusLogged}", "yellowText" ],"202": ["{!$Label.Odigo_VFP02AvailableBreak}", "greenText" ],"203": ["{!$Label.Odigo_VFP02StatusAlerting}", "yellowText" ],"209": ["{!$Label.Odigo_VFP02StatusAlerting}", "yellowText" ],"210": ["{!$Label.Odigo_VFP02StatusAlerting}", "yellowText" ],"213": ["{!$Label.Odigo_VFP02StatusAlertingCustomer}", "yellowText" ],"214": ["{!$Label.Odigo_VFP02StatusAlertingCustomer}", "yellowText" ],"204": ["", "yellowText" ],"205": ["{!$Label.Odigo_VFP02WrapupBreak}", "yellowText" ],"206": ["{!$Label.Odigo_VFP02StatusCommunication}", "cyanText" ],"215": ["{!$Label.Odigo_VFP02StatusCommunication}", "cyanText" ],"216": ["{!$Label.Odigo_VFP02StatusCommunication}", "cyanText" ],"207": ["{!$Label.Odigo_VFP02StatusDisturbed}", "redText" ],"208": ["{!$Label.Odigo_VFP02StatusSelected}", "yellowText" ],"217": ["{!$Label.Odigo_VFP02StatusSelected}", "yellowText" ],"218": ["{!$Label.Odigo_VFP02StatusSelected}", "yellowText" ], "212": ["{!$Label.Odigo_VFP02StatusWaiting}", "yellowText" ],"220": ["{!$Label.Odigo_VFP02StatusUnknown}", "redText" ],"221": ["{!$Label.Odigo_VFP02UnionBreak}", "yellowText" ],"222": ["{!$Label.Odigo_VFP02StatusHoldCall}", "yellowText" ], "223": ["{!$Label.Odigo_VFP02StatusReserved}", "yellowText" ]};
+   		var mIsUserAUthorized = {!isUserAuthorized};
+   		var mUserNotConfigured = "{!$Label.Odigo_VFP02UserNotConfigured}";
+   		
+   		var mIsInConsole;
+   		var mAgentId = "{!agentId}";
+   		
+		// Manage console or standard screen, then launch polling
+		if ({!NOT(isExpired)}) {		
+			sforce.interaction.isInConsole(reloadIfIsInConsole);
+   		} else {
+   			console.log("{!$Label.Odigo_AP02UtilityExpirationLabel}");
+   		}  		
+   		   		
+		function initLongPolling() {
+			var vAgentId = "{!agentId}";
+			var vPushAgent;
+			var vGateWayUrl = "{!gatewayURL}";
+						
+			// Disable waiting reponse
+			Odigo.Softphone.disableAllButtons(); 
+			vPushAgent = new Push.Agent(vGateWayUrl, vAgentId); // path to the Push server
+			vPushAgent.init(
+					function(){ // Success callback function
+			 			Odigo.Softphone.successCallbackLP();
+					},
+					function(){ // Failure callback function
+			 			Odigo.Softphone.failureCallback("{!$Label.Odigo_VFP02ErrAccessGateway}");
+					},
+					function(message){
+						Odigo.Softphone.manageMessage(message);
+					}
+			);
+		}	
+		
+		// Enable click to dial
+		function setClickTodDial(pValue) {
+			if (pValue) {
+				sforce.interaction.cti.enableClickToDial(enableClickToDialCallback);
+			} else {
+				sforce.interaction.cti.disableClickToDial(disableClickToDialCallback);
+			}
+		}
+		
+		// Set behaviour of click to dial
+		sforce.interaction.cti.onClickToDial(onClickToDialCallback);
+		
+    </script>
+</apex:page>

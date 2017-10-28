@@ -1,0 +1,11 @@
+<apex:page setup="true">
+    <br/>
+    <h1>{!$Label.odigo__odigo_vfp04tokenheader}</h1>
+    <br/>
+    <br/>
+    {!$Label.odigo__odigo_vfp04tokentext}
+    <br/><br/><br/>
+    <apex:form >
+        <apex:commandButton value="{! $Label.Odigo_VFP04TokenBackButton }" action="/apex/Odigo__VFP04Configuration"/>
+    </apex:form>
+</apex:page>

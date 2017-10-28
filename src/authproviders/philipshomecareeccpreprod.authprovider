@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://philipshomecareecc--preprod.cs31.my.salesforce.com/services/oauth2/authorize</authorizeUrl>
+    <consumerKey>3MVG9Se4BnchkASmtngzNh_R0lZl2NlMkxJmhmCHzgh0ApTBDzIYSkED4HkLlcj288wN9bZ.vzyRYo2luQZhU</consumerKey>
+    <consumerSecret>oYd8qTwcgSB91GnjWHR2142+gTo8XlUq</consumerSecret>
+    <defaultScopes>refresh_token api</defaultScopes>
+    <friendlyName>PrePordPMM</friendlyName>
+    <includeOrgIdInIdentifier>true</includeOrgIdInIdentifier>
+    <providerType>Salesforce</providerType>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <tokenUrl>https://philipshomecareecc--preprod.cs31.my.salesforce.com/services/oauth2/token</tokenUrl>
+</AuthProvider>

@@ -1,0 +1,102 @@
+<apex:page showHeader="false" standardStylesheets="false">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>	
+	<style>
+		.errorMessage { color: red; width:100%!important; }
+		body { overflow: hidden; }	
+	</style>
+
+	<!-- Import resources pack -->
+    <!-- <apex:includeScript value="{!URLFOR($Resource.Odigo_resources,'./script/popUp.js')}"/>  -->
+    <apex:stylesheet value="{!URLFOR($Resource.Odigo__Odigo_resources,'./css/odigo.css')}"/>
+
+	<script type="text/javascript">
+		function selectPhoneNumber() {
+			if (window.opener == null) {
+				alert("{!$Label.Odigo_VFP02ErrNoOpener}");
+				self.close();
+			}
+			var vPhoneNumber = document.getElementById('numberPopup').value;
+			if (window.opener.Odigo.Utility.isPhoneNumberWellFormatted(vPhoneNumber)) {
+				window.opener.Odigo.Softphone.startTransfer(vPhoneNumber);
+				self.close();
+			} else {
+				document.getElementById('errorFormat').innerHTML = "{!$Label.Odigo_VFP02OdigoCTIPhoneNumberIncorrect}";
+			}
+		}
+	</script>
+</head>
+<body>
+		<div id="section-popup" style="display:block; height:310px; width:314px; top:0px; left:0px; margin:0px; padding:0px;">
+
+			<apex:form styleClass="block-form-popup section-popup-obs" >
+				<h3>
+					<span id="transferTitle">
+						<b>{!$Label.Odigo_VFP02PopupTransfer}</b>
+					</span>
+				</h3>
+				<fieldset id="transferCallBlock" class="transfer">
+					<div class="legend-transfer">
+						<span id="transferToLabel" class="title-transferTo">{!$Label.Odigo_VFP02PopupTransferFrom}</span>
+						<span id="transferTypeLabel" class="title-transferType">{!$Label.Odigo_VFP02PopupTransferTo}</span>
+					</div>
+	
+					<div class="input-transferTo">
+						<input id="transfer-register" type="radio" name="transferTo" value="annuaire" disabled="true" />
+						<label id="transferRegisterLabel" for="transfer-register">{!$Label.Odigo_VFP02PopupMiniDirectory}</label>
+						<br />
+						<input id="transfer-number" type="radio" name="transferTo" value="male" checked="checked" disabled="true"/>
+						<label id="transferNumberLabel" for="transfer-number">{!$Label.Odigo_VFP02PopupOpenNumber}</label>
+						<br />
+						<input id="transfer-skills" type="radio" name="transferTo" value="male" disabled="true"/>
+						<label id="transferSkillsLabel" for="transfer-skills">{!$Label.Odigo_VFP02PopupSkill}</label>
+						<br />
+						<input id="transfer-agent" type="radio" name="transferTo" value="male" disabled="true" />
+						<label id="transferAgentLabel" for="transfer-agent">{!$Label.Odigo_VFP02PopupAgent}</label>
+					</div>
+	
+					<div class="input-transferType">
+						<input id="transfer-supervised" type="radio" name="transferType" value="supervise" checked="checked" disabled="true"  />
+						<label id="transferSupervisedLabel" for="transfer-supervised">
+							{!$Label.Odigo_VFP02PopupSupervised}
+						</label>
+						<br />
+						<input id="transfer-halfsupervised" type="radio" name="transferType" value="male" disabled="true"  />
+						<label id="transferHalfsupervisedLabel" for="transfer-halfsupervised">
+							{!$Label.Odigo_VFP02PopupHalfSupervised}
+						</label>
+						<br />
+						<input id="transferBlindInput" type="radio" name="transferType" value="male" disabled="true"  />
+						<label id="transferBlindLabel" for="transferBlindInput">
+							{!$Label.Odigo_VFP02PopupBlind}
+						</label>
+	
+					</div>
+				</fieldset>
+				<h3 id="	">
+					<b>{!$Label.Odigo_VFP02PopupOpenNumber}</b>
+				</h3>
+				<fieldset id="numberNameBlock" class="block-number">
+					<label id="numberPopupLabel" class="label-number-popup">
+						{!$Label.Odigo_VFP02PopupSelectNumber}
+					</label>
+					<label id="namePopupLabel" class="label-name-popup">
+						{!$Label.Odigo_VFP02PopupAssociateName}
+					</label>
+					<br />
+					<div>
+						<input id="numberPopup" class="input-number-popup" type="text" name="number" />
+					</div>
+					<div>
+						<input id="namePopup" class="input-name-popup" type="text" name="name" />
+					</div>	
+					<div id="errorFormat" class="errorMessage"></div>	
+				</fieldset>
+				
+				<div  class="submit-form-popup">
+					<input id="submitFormPopup" type="submit" onClick="selectPhoneNumber();" Value="{!$Label.Odigo_VFP02PopupValidate}"/>				
+				</div>
+			</apex:form>
+		</div>
+</body>
+</apex:page>

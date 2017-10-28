@@ -1,0 +1,12 @@
+<apex:page controller="Odigo.VFC03Dashboard" cache="true">
+	<apex:form >
+		<c:C03Dashboard prefix="agent" titleSection="{! $Label.Odigo_VFP03AgentTableTitle }" />
+		<c:C03Dashboard prefix="gt" titleSection="{! $Label.Odigo_VFP03GtTableTitle }" />
+		
+		<apex:actionFunction name="retrieveOrgConfiguration" action="{! retrieveOrgConfiguration }" reRender="" />
+	</apex:form>
+	
+	<script>
+		retrieveOrgConfiguration();
+	</script>
+</apex:page>
