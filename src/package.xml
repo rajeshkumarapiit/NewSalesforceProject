@@ -16,10 +16,7 @@
         <members>*</members>
         <name>ApexTrigger</name>
     </types>
-    <types>
-        <members>*</members>
-        <name>AppMenu</name>
-    </types>
+    
     <types>
         <members>*</members>
         <name>ApprovalProcess</name>
